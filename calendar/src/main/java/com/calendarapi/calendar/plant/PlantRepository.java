@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface PlantRepository extends JpaRepository<Plant, Long> {
     // This interface is responsible for data access layer
 
-//
+
 
 }

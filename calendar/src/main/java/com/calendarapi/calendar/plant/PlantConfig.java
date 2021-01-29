@@ -10,7 +10,7 @@ import java.util.List;
 public class PlantConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(
+    CommandLineRunner plantCommandLineRunner(
             PlantRepository repository) {
         return args -> {
             Plant tomato = new Plant(

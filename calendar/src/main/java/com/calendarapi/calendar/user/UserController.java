@@ -1,9 +1,7 @@
 package com.calendarapi.calendar.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,9 +18,23 @@ public class UserController {
     }
 
 
+    // Index
     @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
+    }
+
+    // Show
+    @GetMapping(path = "{userId}")
+    public User showUser(@PathVariable("userId") Long userId) {
+//        Long id = Long.valueOf(userId); // not neccessary
+        return userService.showUser(userId);
+    }
+
+    // Create
+    @PostMapping
+    public void addUser(@RequestBody User user) {
+        userService.addNewUser(user);
     }
 
 }

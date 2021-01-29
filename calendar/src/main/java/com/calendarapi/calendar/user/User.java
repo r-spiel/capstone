@@ -1,11 +1,15 @@
 package com.calendarapi.calendar.user;
 
+import com.calendarapi.calendar.userPlant.UserPlant;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user_account")
 public class User {
-    // TODO: User has many Plants
+    // TODO: User has many UserPlants
     // TODO: User has many Events thru Plants
     @Id
     @SequenceGenerator(
@@ -21,6 +25,9 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_fid", referencedColumnName = "id")
+    List<UserPlant> userPlantList = new ArrayList< >();
 
     public User() {
     }
@@ -58,5 +65,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List < UserPlant > getUserPlantList() {
+        return userPlantList;
+    }
+
+    public void setUserPlantList(List < UserPlant > userPlantList) {
+        this.userPlantList = userPlantList;
     }
 }
