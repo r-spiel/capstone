@@ -24,7 +24,10 @@ public class Plant {
     private Integer harvest;
     private String sunRequirement;
 
-    // User plant is inheriting this constructor
+    public Plant () {
+    }
+
+    // UserPlant is inheriting this constructor
     public Plant(Long id, String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement) {
         this.id = id;
         this.name = name;

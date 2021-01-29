@@ -13,6 +13,7 @@ public class PlantService {
 
     @Autowired // dependency injection
     public PlantService(PlantRepository plantRepository) {
+
         this.plantRepository = plantRepository;
     }
 
