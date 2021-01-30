@@ -28,6 +28,9 @@ public class UserPlantController {
         userPlantService.addNewUserPlant(userPlant, userId);
     }
 
+    // TODO:
+    // Update
 
+    // Delete
 
 }

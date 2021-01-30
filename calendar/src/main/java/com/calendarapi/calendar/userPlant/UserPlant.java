@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "userPlants")
 public class UserPlant {
-    // consider extending attributes from Plant class
+    // consider extending/inheriting from Plant class
     // TODO: add has many Events, so will hold list of Events
     // TODO: consider UserPlant could have color attribute which would give all the events the same color in the calendar
     @Id
