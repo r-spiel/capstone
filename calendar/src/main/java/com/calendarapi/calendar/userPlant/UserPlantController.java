@@ -24,8 +24,13 @@ public class UserPlantController {
 
     // Create
     @PostMapping
-    public void addUserPlant(@RequestBody UserPlant userPlant) {
-        userPlantService.addNewUserPlant(userPlant);
+    public void addUserPlant(@RequestBody UserPlant userPlant, @PathVariable("userId") Long userId) {
+        userPlantService.addNewUserPlant(userPlant, userId);
     }
+
+    // TODO:
+    // Update
+
+    // Delete
 
 }
