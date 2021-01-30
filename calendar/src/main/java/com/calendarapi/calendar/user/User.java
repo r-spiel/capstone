@@ -25,8 +25,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_fid", referencedColumnName = "id")
+    @OneToMany(mappedBy = "user")
+//    @JoinColumn(name = "user_fid", referencedColumnName = "id")
     List<UserPlant> userPlantList = new ArrayList< >();
 
     public User() {

@@ -1,7 +1,8 @@
 package com.calendarapi.calendar.userPlant;
 
 import com.calendarapi.calendar.user.User;
-import com.calendarapi.calendar.user.UserRepository;
+
+import com.calendarapi.calendar.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +14,12 @@ import java.util.Optional;
 public class UserPlantService {
 
     private final UserPlantRepository userPlantRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserPlantService(UserPlantRepository userPlantRepository, UserRepository userRepository) {
+    public UserPlantService(UserPlantRepository userPlantRepository, UserService userService) {
         this.userPlantRepository = userPlantRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -32,12 +33,7 @@ public class UserPlantService {
         if (userPlantByName.isPresent()) {
             throw new IllegalStateException("plant name already taken");
         }
-        // find the associated user:
-        User user = userRepository.findById(userId)
-                .orElseThrow(
-                        () -> new IllegalStateException("User with ID: " + userId + " does not exist")
-                );
-
+        User user = userService.showUser(userId);
         userPlant.setUser(user);
         userPlantRepository.save(userPlant);
     }
