@@ -74,4 +74,5 @@ public class User {
     public void setUserPlantList(List < UserPlant > userPlantList) {
         this.userPlantList = userPlantList;
     }
+
 }

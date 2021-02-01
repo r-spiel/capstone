@@ -8,7 +8,9 @@ import org.springframework.data.util.Lazy;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "userPlants")
+@Table(name = "userPlants",
+        uniqueConstraints = {@UniqueConstraint( name = "idx_userfid_name", columnNames = {"user_fid", "name"})
+}) // unique constraints validates the plant name is unique for that user's list
 public class UserPlant {
     // consider extending attributes from Plant class
     // TODO: add has many Events, so will hold list of Events
