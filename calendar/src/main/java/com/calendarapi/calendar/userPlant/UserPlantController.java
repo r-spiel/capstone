@@ -60,5 +60,4 @@ public class UserPlantController {
     public void deleteUserPlant(@PathVariable("userPlantId") Long userPlantId) {
         userPlantService.deleteUserPlant(userPlantId);
     }
-
 }

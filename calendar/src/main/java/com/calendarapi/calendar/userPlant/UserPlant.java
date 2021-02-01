@@ -12,7 +12,7 @@ import javax.persistence.*;
         uniqueConstraints = {@UniqueConstraint( name = "idx_userfid_name", columnNames = {"user_fid", "name"})
 }) // unique constraints validates the plant name is unique for that user's list
 public class UserPlant {
-    // consider extending attributes from Plant class
+    // consider extending/inheriting from Plant class
     // TODO: add has many Events, so will hold list of Events
     // TODO: consider UserPlant could have color attribute which would give all the events the same color in the calendar
     @Id
