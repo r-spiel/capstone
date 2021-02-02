@@ -1,24 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+} from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
+  // const [authenticated, setAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <body>
+        <header>
+          <nav>
+            <ul>
+              <li className="title">Grow-Cal App</li>
+              <li>About</li>
+              <li><button>Login</button></li>
+            </ul>
+            
+          </nav>
+        </header>
+      
+        <main>
+          <p>Main body</p>
+        </main>
+        <footer><p>Footer</p></footer>
+      </body>
+    </Router>
+
   );
 }
 
