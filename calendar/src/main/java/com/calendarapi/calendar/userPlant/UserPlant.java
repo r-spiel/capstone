@@ -1,11 +1,14 @@
 package com.calendarapi.calendar.userPlant;
 
+import com.calendarapi.calendar.event.Event;
 import com.calendarapi.calendar.plant.Plant;
 import com.calendarapi.calendar.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "userPlants",
@@ -38,7 +41,9 @@ public class UserPlant {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_fid", nullable = false)
     private User user;
-    // add attribute for holding array of events
+
+    @OneToMany(mappedBy = "userPlant", cascade = CascadeType.REMOVE)
+    List<Event> eventList = new ArrayList< >();
 
     public UserPlant () {
     }
@@ -124,5 +129,13 @@ public class UserPlant {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
     }
 }
