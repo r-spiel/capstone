@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // transforms to SQL
     Optional<User> findUserByName(String name);
     // could do @Query instead (JBQL)
-
+    Optional<User> findUserByUserName(String userName);
 
 }

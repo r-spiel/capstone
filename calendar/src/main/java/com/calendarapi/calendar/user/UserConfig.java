@@ -13,14 +13,17 @@ public class UserConfig {
     CommandLineRunner userCommandLineRunner(UserRepository userRepository) {
         return args -> {
             User testUser1 = new User(
+                    "user1",
                      "Test User1",
                     "user1@abc.com"
             );
             User testUser2 = new User(
+                    "user2",
                     "Test User2",
                     "user2@abc.com"
             );
             User testUser3 = new User(
+                    "user3",
                     "Test User3",
                     "user3@abc.com"
             );

@@ -38,4 +38,12 @@ public class UserService {
                 ));
         return user;
     }
+
+    public User showByUserName(String userName) {
+        User user = userRepository.findUserByUserName(userName)
+                .orElseThrow(() -> new IllegalStateException(
+                        "User with userName: " + userName + " does not exist"
+                ));
+        return user;
+    }
 }

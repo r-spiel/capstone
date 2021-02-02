@@ -24,11 +24,17 @@ public class UserController {
         return userService.getUsers();
     }
 
-    // Show
+    // Show by ID
     @GetMapping(path = "{userId}")
     public User showUser(@PathVariable("userId") Long userId) {
-//        Long id = Long.valueOf(userId); // not neccessary
         return userService.showUser(userId);
+    }
+
+    // Show by userName
+    @GetMapping(path = "/userName")
+    public User showUserByUserName(
+            @RequestParam(required = true) String userName) {
+        return userService.showByUserName(userName);
     }
 
     // Create
