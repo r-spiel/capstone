@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping(path = "/userPlants") // default route /userPlant
 public class UserPlantController {
 
     private final UserPlantService userPlantService;
