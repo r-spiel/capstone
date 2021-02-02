@@ -1,9 +1,7 @@
 package com.calendarapi.calendar.userPlant;
 
-import com.calendarapi.calendar.plant.Plant;
 import com.calendarapi.calendar.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 
@@ -12,9 +10,6 @@ import javax.persistence.*;
         uniqueConstraints = {@UniqueConstraint( name = "idx_userfid_name", columnNames = {"user_fid", "name"})
 }) // unique constraints validates the plant name is unique for that user's list
 public class UserPlant {
-    // consider extending/inheriting from Plant class
-    // TODO: add has many Events, so will hold list of Events
-    // TODO: consider UserPlant could have color attribute which would give all the events the same color in the calendar
     @Id
     @SequenceGenerator(
             name = "userPlant_sequence",
@@ -38,7 +33,6 @@ public class UserPlant {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_fid", nullable = false)
     private User user;
-    // add attribute for holding array of events
 
     public UserPlant () {
     }
