@@ -42,7 +42,7 @@ public class UserPlant {
     @JoinColumn(name="user_fid", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "userPlant")
+    @OneToMany(mappedBy = "userPlant", cascade = CascadeType.REMOVE)
     List<Event> eventList = new ArrayList< >();
 
     public UserPlant () {
