@@ -2,26 +2,27 @@ import React, { useEffect, useState} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-const LoginForm = ({url, setCurrentUserCallback}) => {
-  const [formField, setFormField] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
-  // login completed callback function listen for 
+const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
+  const [loginUserFormField, setloginUserFormField] = useState("")
+  const [errorMessageLogin, seterrorMessageLogin] = useState("")
+  const [registerNewUserFormField, setRegisterNewUserFormField] = useState({
+    "userName": ""
+  })
+  const [errorMessageNewUser, seterrorMessageNewUser] = useState("")
 
-  // onFormSubmit we'll call the API to search for that userName
-  // if valid, set the user otherwise print user not found
-
-  const onInputChange = (event) => {
-    setFormField(event.target.value);
+  // Login Existing User
+  const onLoginUserInputChange = (event) => {
+    setloginUserFormField(event.target.value);
   }
 
-  const onFormSubmit = event => {
+  const onLoginUserFormSubmit = event => {
     event.preventDefault();
 
-    if (formField !== null) {
-      findUserFromAPI(formField)
+    if (loginUserFormField !== null) {
+      findUserFromAPI(loginUserFormField)
     }
 
-    setFormField("")
+    setloginUserFormField("")
   };
 
   const findUserFromAPI = (userName) => {
@@ -29,34 +30,84 @@ const LoginForm = ({url, setCurrentUserCallback}) => {
     .then((response) => {
       const userData = response.data;
       setCurrentUserCallback(userData)
+      buttonTextCallback()
       console.log(userData)
 
     })
     .catch((error) => {
-      setErrorMessage(error.response.data.message);
+      seterrorMessageLogin(error.response.data.message);
+      console.log(error.response.data);
+      // axios error.response, sep from error.message
+    });
+  }
+
+  // Register New User
+  const onRegisterUserInputChange = (event) => {
+    setRegisterNewUserFormField(event.target.value);
+  }
+
+  const onRegisterUserFormSubmit = event => {
+    event.preventDefault();
+
+    if (loginUserFormField !== null) {
+      postUserToAPI(loginUserFormField)
+    }
+
+    setRegisterNewUserFormField("")
+  };
+
+  const postUserToAPI = (userName) => {
+    axios.get(`${url}/users/userName?userName=${userName}`)
+    .then((response) => {
+      const userData = response.data;
+      setCurrentUserCallback(userData)
+      buttonTextCallback()
+      console.log(userData)
+
+    })
+    .catch((error) => {
+      seterrorMessageLogin(error.response.data.message);
       console.log(error.response.data);
       // axios error.response, sep from error.message
     });
   }
 
 
-
   return (
     <div className="card" >
-      <h5 className="card-header">Login Form</h5>
-      <form onSubmit={onFormSubmit} className="card-body">
+      <h5 className="card-header">Login Existing User</h5>
+      <form onSubmit={onLoginUserFormSubmit} className="card-body">
         <div>
           <label htmlFor="userName">User Name:</label>
           <input name="userName" 
             placeholder="enter user_name" 
-            onChange={ onInputChange }
-            value={ formField }
+            onChange={ onLoginUserInputChange }
+            value={ loginUserFormField }
             type="text" 
           />
         </div>
+        {errorMessageLogin !== "" ? errorMessageLogin : null }
         <div>
           <button type="submit">Login</button>
         </div>
+      </form>
+
+      <h5 className="card-header">Register New User</h5>
+      <form onSubmit={onRegisterUserFormSubmit} className="card-body">
+        <div>
+          <label htmlFor="userName">User Name:</label>
+          <input name="userName" 
+            placeholder="enter user_name" 
+            onChange={ onRegisterUserInputChange }
+            value={ registerNewUserFormField }
+            type="text" 
+          />
+        </div>
+        {errorMessageLogin !== "" ? errorMessageLogin : null }
+        <div>
+          <button type="submit">Login</button>
+        </div>
+        
 
       </form>
     </div>

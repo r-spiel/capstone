@@ -14,6 +14,7 @@ function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [buttonLoginText, setButtonLoginText] = useState("Login")
 
   //user object: {
   //   "id": 1,
@@ -28,20 +29,37 @@ function App() {
 
   const saveCurrentUser = (user) => {
     setCurrentUser(user)
+    // setShowLogin(false)
+  }
+
+  const changeButtonToLogout = () => {
+    setButtonLoginText("Logout")
     setShowLogin(false)
   }
 
-  // const showLoginForm = () => {
-  //   if (currentUser !== null ) {
-  //     // log out
-  //     setCurrentUser(null)
+  // const changeButtonText = () => {
+  //   if (currentUser === null) {
+  //     setButtonLoginText("Login")
   //   } else {
-  //     return (
-  //       <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} />
-  //     )
+  //     // there is a user logged in
+  //     setButtonLoginText("Logout")
+  //     setShowLogin(false)
   //   }
   // }
 
+  const onLoginLogoutClick = () => {
+    if (currentUser === null) {
+      // if not logged in, show/hide the login form on button click
+      setButtonLoginText("Login")
+      setShowLogin(!showLogin)
+     } else {
+      // if a user is logged in, and clicks, log them out
+      setCurrentUser(null)
+      setButtonLoginText("Login")
+      setShowLogin(false)
+    }
+    
+  }
 
   return (
     <Router>
@@ -53,8 +71,8 @@ function App() {
               <li className="title">Grow-Cal App</li>
               <li>About</li>
               <li>{ currentUser !== null ? "Logged in as " + currentUser.userName : null }
-                <button onClick={ () => setShowLogin(!showLogin) } >{ currentUser === null ? "Login" : "Logout" }</button></li>
-                { showLogin ? <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} /> : null }
+                <button onClick={ onLoginLogoutClick } >{ buttonLoginText }</button></li>
+                { showLogin ? <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
             
           </nav>
