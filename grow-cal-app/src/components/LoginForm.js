@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   const [loginUserFormField, setloginUserFormField] = useState("")
   const [errorMessageLogin, seterrorMessageLogin] = useState("")
-  const [registerNewUserFormField, setRegisterNewUserFormField] = useState({
-    "userName": ""
-  })
+  const [registerNewUserFormField, setRegisterNewUserFormField] = useState("")
   const [errorMessageNewUser, seterrorMessageNewUser] = useState("")
 
   // Login Existing User
@@ -57,17 +55,18 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   };
 
   const postUserToAPI = (userName) => {
-    axios.get(`${url}/users/userName?userName=${userName}`)
+    axios.post(`${url}/users`, {"userName": userName}, {withCredentials: true})
     .then((response) => {
       const userData = response.data;
-      setCurrentUserCallback(userData)
-      buttonTextCallback()
+      // setCurrentUserCallback(userData)
+      // buttonTextCallback()
+      console.log(response)
       console.log(userData)
 
     })
     .catch((error) => {
-      seterrorMessageLogin(error.response.data.message);
-      console.log(error.response.data);
+      seterrorMessageNewUser(error.response);
+      console.log(error.response);
       // axios error.response, sep from error.message
     });
   }
