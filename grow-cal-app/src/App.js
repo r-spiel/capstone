@@ -1,5 +1,7 @@
 import './App.css';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import React, { useState } from 'react';
+import localStorage from 'local-storage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +11,8 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
+import SplashPage from './components/SplashPage';
+import Home from './components/Home';
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -29,23 +33,13 @@ function App() {
 
   const saveCurrentUser = (user) => {
     setCurrentUser(user)
-    // setShowLogin(false)
+    // localStorage.setItem('user', user)
   }
 
   const changeButtonToLogout = () => {
     setButtonLoginText("Logout")
     setShowLogin(false)
   }
-
-  // const changeButtonText = () => {
-  //   if (currentUser === null) {
-  //     setButtonLoginText("Login")
-  //   } else {
-  //     // there is a user logged in
-  //     setButtonLoginText("Logout")
-  //     setShowLogin(false)
-  //   }
-  // }
 
   const onLoginLogoutClick = () => {
     if (currentUser === null) {
@@ -55,6 +49,7 @@ function App() {
      } else {
       // if a user is logged in, and clicks, log them out
       setCurrentUser(null)
+      // localStorage.clear()
       setButtonLoginText("Login")
       setShowLogin(false)
     }
@@ -66,11 +61,11 @@ function App() {
       <body>
 
         <header>
-          <nav>
+          <nav className="navbar navbar-expand-lg">
             <ul>
-              <li className="title">Grow-Cal App</li>
-              <li>About</li>
-              <li>{ currentUser !== null ? "Logged in as " + currentUser.userName : null }
+              <li className="title navbar-brand">Grow-Cal App</li>
+              <li className="nav-item">About</li>
+              <li className="navbar-text">{ currentUser !== null ? "Logged in as " + currentUser.userName : null }
                 <button onClick={ onLoginLogoutClick } >{ buttonLoginText }</button></li>
                 { showLogin ? <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
@@ -79,8 +74,7 @@ function App() {
         </header>
       
         <main className="container">
-          <p>Main body</p>
-          {/* <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} /> */}
+          { currentUser === null ? <SplashPage /> : <Home /> }
         </main>
 
         <footer><p>Footer</p></footer>

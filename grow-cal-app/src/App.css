@@ -37,3 +37,7 @@ nav a {
 nav a:hover {
   font-weight: bold;
 }
+
+.calendar {
+  background-color: white;
+}

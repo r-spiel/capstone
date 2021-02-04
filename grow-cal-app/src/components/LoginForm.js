@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -16,7 +16,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   const onLoginUserFormSubmit = event => {
     event.preventDefault();
 
-    if (loginUserFormField !== null) {
+    if (loginUserFormField !== "") {
       findUserFromAPI(loginUserFormField)
     }
 
@@ -42,26 +42,28 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   // Register New User
   const onRegisterUserInputChange = (event) => {
     setRegisterNewUserFormField(event.target.value);
+    console.log(event.target.value)
   }
 
   const onRegisterUserFormSubmit = event => {
     event.preventDefault();
 
-    if (loginUserFormField !== null) {
-      postUserToAPI(loginUserFormField)
+    if (registerNewUserFormField !== "") {
+      postUserToAPI(registerNewUserFormField)
     }
 
     setRegisterNewUserFormField("")
   };
 
-  const postUserToAPI = (userName) => {
-    axios.post(`${url}/users`, {"userName": userName}, {withCredentials: true})
+  const postUserToAPI = (name) => {
+    axios.post(`${url}/users`, {userName: name})
     .then((response) => {
       const userData = response.data;
       // setCurrentUserCallback(userData)
       // buttonTextCallback()
       console.log(response)
       console.log(userData)
+      findUserFromAPI(name)
 
     })
     .catch((error) => {
@@ -104,7 +106,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
         </div>
         {errorMessageLogin !== "" ? errorMessageLogin : null }
         <div>
-          <button type="submit">Login</button>
+          <button type="submit">Register New User</button>
         </div>
         
 
