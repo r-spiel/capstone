@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import localStorage from 'local-storage';
 
 const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   const [loginUserFormField, setloginUserFormField] = useState("")
@@ -34,7 +35,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
     })
     .catch((error) => {
       seterrorMessageLogin(error.response.data.message);
-      console.log(error.response.data);
+      console.log(error);
       // axios error.response, sep from error.message
     });
   }
@@ -58,18 +59,11 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
   const postUserToAPI = (name) => {
     axios.post(`${url}/users`, {userName: name})
     .then((response) => {
-      const userData = response.data;
-      // setCurrentUserCallback(userData)
-      // buttonTextCallback()
-      console.log(response)
-      console.log(userData)
       findUserFromAPI(name)
-
     })
     .catch((error) => {
-      seterrorMessageNewUser(error.response);
-      console.log(error.response);
-      // axios error.response, sep from error.message
+      seterrorMessageNewUser(error.response.data.message);
+      console.log(error.response.data);
     });
   }
 
@@ -87,7 +81,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
             type="text" 
           />
         </div>
-        {errorMessageLogin !== "" ? errorMessageLogin : null }
+        <div className="text-danger">{errorMessageLogin !== "" ? errorMessageLogin : null }</div>
         <div>
           <button type="submit">Login</button>
         </div>
@@ -104,7 +98,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
             type="text" 
           />
         </div>
-        {errorMessageLogin !== "" ? errorMessageLogin : null }
+        <div className="text-danger">{errorMessageNewUser !== "" ? errorMessageNewUser : null }</div>
         <div>
           <button type="submit">Register New User</button>
         </div>

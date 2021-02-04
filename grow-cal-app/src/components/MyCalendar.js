@@ -1,5 +1,6 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
+import localStorage from 'local-storage';
 
 const localizer = momentLocalizer(moment)
 

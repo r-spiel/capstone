@@ -14,26 +14,27 @@ import LoginForm from './components/LoginForm';
 import SplashPage from './components/SplashPage';
 import Home from './components/Home';
 
+const API_URL_BASE = 'http://localhost:8080'
+
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
-  const [buttonLoginText, setButtonLoginText] = useState("Login")
 
-  //user object: {
-  //   "id": 1,
-  //   "userName": "user1",
-  //   "name": "Test User1",
-  //   "email": "user1@abc.com",
-  //   "userPlantList": [
-  //   ]
-  // }
+  let buttonText = ""
+  if (localStorage.get('user')) {
+    buttonText = "Logout"
+  } else {
+    buttonText = "Login"
+  }
 
-  const localAPI = "http://localhost:8080"
+  const [buttonLoginText, setButtonLoginText] = useState(buttonText)
 
   const saveCurrentUser = (user) => {
-    setCurrentUser(user)
-    // localStorage.setItem('user', user)
+    // setCurrentUser(user)
+    localStorage.set('user', user.userName)
+    localStorage.set('id', user.id)
+    console.log(localStorage.get('user'))
+    console.log(localStorage.get('id'))
   }
 
   const changeButtonToLogout = () => {
@@ -42,18 +43,16 @@ function App() {
   }
 
   const onLoginLogoutClick = () => {
-    if (currentUser === null) {
+    if (!localStorage.get('user')) {
       // if not logged in, show/hide the login form on button click
       setButtonLoginText("Login")
       setShowLogin(!showLogin)
      } else {
       // if a user is logged in, and clicks, log them out
-      setCurrentUser(null)
-      // localStorage.clear()
+      localStorage.clear()
       setButtonLoginText("Login")
       setShowLogin(false)
     }
-    
   }
 
   return (
@@ -65,16 +64,16 @@ function App() {
             <ul>
               <li className="title navbar-brand">Grow-Cal App</li>
               <li className="nav-item">About</li>
-              <li className="navbar-text">{ currentUser !== null ? "Logged in as " + currentUser.userName : null }
+              <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
                 <button onClick={ onLoginLogoutClick } >{ buttonLoginText }</button></li>
-                { showLogin ? <LoginForm url={localAPI} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
+                { showLogin ? <LoginForm url={API_URL_BASE} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
             
           </nav>
         </header>
       
         <main className="container">
-          { currentUser === null ? <SplashPage /> : <Home /> }
+          { !localStorage.get('user') ? <SplashPage /> : <Home url={API_URL_BASE} /> }
         </main>
 
         <footer><p>Footer</p></footer>
