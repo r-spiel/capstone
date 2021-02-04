@@ -24,8 +24,8 @@ public class UserService {
 
     public void addNewUser(User user) {
         // name must be unique
-        Optional<User> userByName = userRepository.findUserByName(user.getName());
-        if (userByName.isPresent()) {
+        Optional<User> userByUserName = userRepository.findUserByUserName(user.getUserName());
+        if (userByUserName.isPresent()) {
             throw new IllegalStateException("username already taken");
         }
         userRepository.save(user);

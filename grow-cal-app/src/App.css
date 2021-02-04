@@ -38,6 +38,12 @@ nav a:hover {
   font-weight: bold;
 }
 
+.login-card {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+}
+
 .calendar {
   background-color: white;
 }

@@ -3,19 +3,19 @@ import moment from 'moment'
 
 const localizer = momentLocalizer(moment)
 
-const MyCalendar = props => {
+const MyCalendar = (props) => {
   const myEventsList = []
 
-    return (
-      <div className="calendar">
-        <Calendar
-          localizer={localizer}
-          events={myEventsList}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-        />
-      </div>
+  return (
+    <div className="calendar">
+      <Calendar
+        localizer={localizer}
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+      />
+    </div>
   )
 }
 

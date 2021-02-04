@@ -75,7 +75,7 @@ const LoginForm = ({url, setCurrentUserCallback, buttonTextCallback}) => {
 
 
   return (
-    <div className="card" >
+    <div className="card login-card" >
       <h5 className="card-header">Login Existing User</h5>
       <form onSubmit={onLoginUserFormSubmit} className="card-body">
         <div>
