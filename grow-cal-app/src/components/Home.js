@@ -11,7 +11,7 @@ const Home = ({url}) => {
   const [plantList, setPlantList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
   const [selectedPlant, setSelectedPlant] = useState(null)
-
+  const [newPlantError, setNewPlantError] = useState("")
 
   // GET - initial API call to set the user's Plant list
   useEffect(() => {
@@ -27,7 +27,38 @@ const Home = ({url}) => {
   }, []);
 
   // POST new plant to user's list
-  
+  const addPlantToAPI = (plantObj) => {
+    axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
+    .then((response) => {
+      const userData = response.data;
+      
+      console.log(response)
+      console.log(userData)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      setNewPlantError("Error, plant name cannot be the same as any other plant in your Garden.")
+      // axios error.response, sep from error.message
+    });
+  }
+
+  // const getPlantsList = () => {
+  //   axios.get(`${url}/users/${localStorage.get('id')}/plants`)
+  //   .then((response) => {
+  //     const userData = response.data;
+  //     setCurrentUserCallback(userData)
+  //     buttonTextCallback()
+  //     console.log(userData)
+
+  //   })
+  //   .catch((error) => {
+  //     seterrorMessageLogin(error.response.data.message);
+  //     console.log(error);
+  //     // axios error.response, sep from error.message
+  //   });
+  // }
 
   return (
     <div>
@@ -39,10 +70,9 @@ const Home = ({url}) => {
       <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
       <button>add plant from database</button>
 
-      { showNewPlantForm ? <AddNewPlantForm /> : null }
+      { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} /> : null }
 
       { plantList.length > 0 ? <Plants plants={plantList} /> : "Please add plants to your list!"}
-      {/* <Plants plants={plantList} /> */}
       <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
     </div>
   )
