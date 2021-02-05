@@ -23,12 +23,12 @@ public class Plant {
     private Integer lifespan;
     private Integer harvest;
     private String sunRequirement;
+    private String imageUrl;
 
     public Plant () {
     }
 
-    // UserPlant is inheriting this constructor
-    public Plant(Long id, String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement) {
+    public Plant(Long id, String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement, String imageUrl) {
         this.id = id;
         this.name = name;
         this.scientificName = scientificName;
@@ -36,15 +36,17 @@ public class Plant {
         this.lifespan = lifespan;
         this.harvest = harvest;
         this.sunRequirement = sunRequirement;
+        this.imageUrl = imageUrl;
     }
 
-    public Plant(String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement) {
+    public Plant(String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement, String imageUrl) {
         this.name = name;
         this.scientificName = scientificName;
         this.notes = notes;
         this.lifespan = lifespan;
         this.harvest = harvest;
         this.sunRequirement = sunRequirement;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -101,5 +103,13 @@ public class Plant {
 
     public void setSunRequirement(String sunRequirement) {
         this.sunRequirement = sunRequirement;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

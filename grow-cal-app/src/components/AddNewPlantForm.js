@@ -1,8 +1,27 @@
 import React, { useState} from 'react';
 import localStorage from 'local-storage';
 
-const AddNewPlantForm = (props) => {
+const FORM_FIELDS = {
+  "name": "Plant name (required)",
+  "scientificName": "Scientific Name",
+  "notes": "Notes",
+  "lifespan": "Lifespan in weeks",
+  "harvest": "Time from seed to harvest in weeks",
+  "sunRequirement": "full sun/part sun etc.",
+  "imageUrl": "optional image URL"
+}
 
+const AddNewPlantForm = (props) => {
+  const [formFields, setFormFields] = useState({
+    "name": null,
+    "scientificName": null,
+    "notes": null,
+    "lifespan": null,
+    "harvest": null,
+    "sunRequirement": null,
+    "imageUrl": null,
+  })
+  const [errorMessage, seterrorMessage] = useState("")
 //   <Plant 
 //   key={plant.id} 
 //   id={plant.id} 

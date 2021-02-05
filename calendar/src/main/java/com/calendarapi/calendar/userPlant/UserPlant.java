@@ -31,6 +31,7 @@ public class UserPlant {
     private Integer lifespan;
     private Integer harvest;
     private String sunRequirement;
+    private String imageUrl;
 
     @JsonIgnore // prevents from serializing user
     @ManyToOne(fetch= FetchType.LAZY)
@@ -43,7 +44,7 @@ public class UserPlant {
     public UserPlant () {
     }
 
-    public UserPlant(Long id, String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement) {
+    public UserPlant(Long id, String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement, String imageUrl) {
         this.id = id;
         this.name = name;
         this.scientificName = scientificName;
@@ -51,15 +52,17 @@ public class UserPlant {
         this.lifespan = lifespan;
         this.harvest = harvest;
         this.sunRequirement = sunRequirement;
+        this.imageUrl = imageUrl;
     }
 
-    public UserPlant(String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement) {
+    public UserPlant(String name, String scientificName, String notes, Integer lifespan, Integer harvest, String sunRequirement, String imageUrl) {
         this.name = name;
         this.scientificName = scientificName;
         this.notes = notes;
         this.lifespan = lifespan;
         this.harvest = harvest;
         this.sunRequirement = sunRequirement;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -132,5 +135,13 @@ public class UserPlant {
 
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
