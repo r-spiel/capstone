@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import Plant from './Plant'
 import localStorage from 'local-storage';
 
-const Plants = ({plants, deletePlant}) => {
+const Plants = ({plants, deletePlant, url}) => {
   
+  // pass in the list of plants to plant to check for edit??? That the edited name is not the same as any currently there already?  
 
   const plantComponents = plants.map((plant) => {
     return (
       <Plant 
+        plantObj={plant} 
         key={plant.id} 
-        id={plant.id} 
-        name={plant.name} 
-        scientificName={plant.scientificName} 
-        lifespan={plant.lifespan} 
-        harvest={plant.harvest} 
-        sunRequirement={plant.sunRequirement} 
+
+       
         deletePlant={deletePlant}
+        plantList={plants}
+        url={url}
       />
     )
   })

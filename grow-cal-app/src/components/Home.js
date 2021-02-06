@@ -6,6 +6,7 @@ import Plants from "./Plants";
 import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
 import { useHistory, Link } from 'react-router-dom'
+import SplashPage from './SplashPage';
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -64,32 +65,34 @@ const Home = ({url}) => {
     });
   }
 
-  let history = useHistory();
 
-  const redirect = () => {
-    history.push('/addFromDatabase')
+  if ( !localStorage.get('user') ) {
+    return (
+      <SplashPage />
+    )
+  } else {
+    return (
+      <div>
+        <p>Homepage for logged in users</p>
+        <MyCalendar />
+  
+  
+        <h2>My Plant List</h2>
+        <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
+        {/* <button onClick={ redirect } >add plant from database</button> */}
+  
+        <span>
+          <button><Link to="/addFromDatabase">add plant from database</Link></button>
+        </span>
+  
+        { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
+  
+        { plantList.length > 0 ? <Plants plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
+      </div>
+    )
   }
 
-  return (
-    <div>
-      <p>Homepage for logged in users</p>
-      <MyCalendar />
-
-
-      <h2>My Plant List</h2>
-      <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
-      {/* <button onClick={ redirect } >add plant from database</button> */}
-
-      <span>
-        <Link to="/addFromDatabase">add plant from database</Link>
-      </span>
-
-      { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
-
-      { plantList.length > 0 ? <Plants plants={plantList} deletePlant={deletePlant} /> : "Please add plants to your list!"}
-      <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
-    </div>
-  )
 }
 
 Home.propTypes = {
