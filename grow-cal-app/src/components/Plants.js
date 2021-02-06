@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Plant from './Plant'
 import localStorage from 'local-storage';
 
-const Plants = ({plants}) => {
+const Plants = ({plants, deletePlant}) => {
   
 
   const plantComponents = plants.map((plant) => {
@@ -17,6 +17,7 @@ const Plants = ({plants}) => {
         lifespan={plant.lifespan} 
         harvest={plant.harvest} 
         sunRequirement={plant.sunRequirement} 
+        deletePlant={deletePlant}
       />
     )
   })

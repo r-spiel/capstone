@@ -40,15 +40,17 @@ const FORM_FIELDS = [
 ]
 
 const AddNewPlantForm = (props) => {
-  const [formFields, setFormFields] = useState({
+  const defaultFormFields = {
     "name": null,
     "scientificName": null,
     "notes": null,
     "lifespan": null,
     "harvest": null,
     "sunRequirement": null,
-    "imageUrl": null,
-  })
+    "imageUrl": null
+  }
+  
+  const [formFields, setFormFields] = useState(defaultFormFields)
   const [errorMessage, setErrorMessage] = useState("")
 
   // setErrorMessage(props.newPlantErrorMsg)
@@ -65,15 +67,23 @@ const AddNewPlantForm = (props) => {
   const onFormSubmit = event => {
     event.preventDefault()
 
-    props.newPlantAPICallback(formFields)
+    if (formFields.name !== null ) {
+      props.newPlantAPICallback(formFields)
+      props.hideNewPlantForm(false)
+      setFormFields(defaultFormFields)
+    } else {
+      setErrorMessage("Name cannot be blank")
+    }
+    
   }
 
   const inputBoxes = FORM_FIELDS.map((field, i) => {
     return (
-      <div>
+      <div className="form-group">
         <label htmlFor={field.key}>{field.label}</label>
         <input key={i} name={field.key} placeholder={field.placeholder} 
           value={formFields[field.key]} type="text" onChange={onInputChange}
+          className="form-control"
         />
       </div>
     )
@@ -81,9 +91,10 @@ const AddNewPlantForm = (props) => {
 
 
   return (
-    <div>
+    <div className="card p-2">
       <p>NEW PLANT FORM</p>
-      {/* <div className="text-danger">{ errorMessage !== "" ? errorMessage : null }</div> */}
+      <p>*plant name must be unique*</p>
+      <div className="text-danger">{ errorMessage !== "" ? errorMessage : null }</div>
       <form onSubmit={onFormSubmit}>
         {inputBoxes}
         <input type="submit" value="Add Plant" className="submit-btn" />

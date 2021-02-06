@@ -5,6 +5,7 @@ import MyCalendar from './MyCalendar';
 import Plants from "./Plants";
 import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
+import { useHistory, Link } from 'react-router-dom'
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -12,6 +13,10 @@ const Home = ({url}) => {
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
   const [selectedPlant, setSelectedPlant] = useState(null)
   const [newPlantError, setNewPlantError] = useState("")
+
+  const changeShowNewPlantForm = (boolean) => {
+    setShowNewPlantForm(boolean)
+  }
 
   // GET - initial API call to set the user's Plant list
   useEffect(() => {
@@ -39,10 +44,59 @@ const Home = ({url}) => {
     .catch((error) => {
       // seterrorMessage(error.response);
       console.log(error.response);
-      setNewPlantError("Error, plant name cannot be the same as any other plant in your Garden.")
       // axios error.response, sep from error.message
     });
   }
+
+  const deletePlant = (plantId) => {
+    axios.delete(`${url}/userPlants/${plantId}`)
+    .then((response) => {
+      // const userData = response.data;
+      
+      console.log(response)
+      console.log(response.data)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      // axios error.response, sep from error.message
+    });
+  }
+
+  let history = useHistory();
+
+  const redirect = () => {
+    history.push('/addFromDatabase')
+  }
+
+  return (
+    <div>
+      <p>Homepage for logged in users</p>
+      <MyCalendar />
+
+
+      <h2>My Plant List</h2>
+      <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
+      {/* <button onClick={ redirect } >add plant from database</button> */}
+
+      <span>
+        <Link to="/addFromDatabase">add plant from database</Link>
+      </span>
+
+      { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
+
+      { plantList.length > 0 ? <Plants plants={plantList} deletePlant={deletePlant} /> : "Please add plants to your list!"}
+      <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
+    </div>
+  )
+}
+
+Home.propTypes = {
+
+};
+
+export default Home
 
   // const getPlantsList = () => {
   //   axios.get(`${url}/users/${localStorage.get('id')}/plants`)
@@ -59,27 +113,3 @@ const Home = ({url}) => {
   //     // axios error.response, sep from error.message
   //   });
   // }
-
-  return (
-    <div>
-      <p>Homepage for logged in users</p>
-      <MyCalendar />
-
-
-      <h2>My Plant List</h2>
-      <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
-      <button>add plant from database</button>
-
-      { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} /> : null }
-
-      { plantList.length > 0 ? <Plants plants={plantList} /> : "Please add plants to your list!"}
-      <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
-    </div>
-  )
-}
-
-Home.propTypes = {
-
-};
-
-export default Home
