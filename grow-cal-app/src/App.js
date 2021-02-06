@@ -13,6 +13,8 @@ import axios from 'axios';
 import LoginForm from './components/LoginForm';
 import SplashPage from './components/SplashPage';
 import Home from './components/Home';
+import AddNewPlantForm from './components/AddNewPlantForm';
+import addFromDatabase from './components/AddFromDatabase';
 
 const API_URL_BASE = 'http://localhost:8080'
 
@@ -55,17 +57,23 @@ function App() {
     }
   }
 
+  const addFromDatabase = () => {
+    return (
+      <addFromDatabase />
+    )
+  }
+
   return (
     <Router>
       <body>
 
         <header>
-          <nav className="navbar navbar-expand-lg">
-            <ul>
-              <li className="title navbar-brand">Grow-Cal App</li>
+          <nav className="navbar navbar-light">
+          <a href="/" className="title navbar-brand">Grow-Cal App</a>
+            <ul className="navbar-nav">
               <li className="nav-item">About</li>
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
-                <button onClick={ onLoginLogoutClick } >{ buttonLoginText }</button></li>
+                <button onClick={ onLoginLogoutClick } className="nav-item" >{ buttonLoginText }</button></li>
                 { showLogin ? <LoginForm url={API_URL_BASE} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
             
@@ -77,6 +85,10 @@ function App() {
         </main>
 
         <footer><p>Footer</p></footer>
+
+        <Switch>
+          <Route path='/addFromDatabase' component={addFromDatabase} />
+        </Switch>
 
       </body>
     </Router>

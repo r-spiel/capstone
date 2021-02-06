@@ -19,7 +19,8 @@ public class PlantConfig {
                     "some detailed notes about growing Tomatoes",
                     21,
                     13,
-                    "full sun"
+                    "full sun",
+                    "update for image url"
             );
 
             Plant lettuce = new Plant(
@@ -28,7 +29,8 @@ public class PlantConfig {
                     "Lettuce is a cool weather crop and high temperatures will impede germination and/or cause the plant to bolt (go to seed quickly). Some hybrid cultivars have been bred to be more heat-resistant.",
                     15,
                     5,
-                    "partial sun"
+                    "partial sun",
+                    "update for image url"
             );
 
             repository.saveAll(
