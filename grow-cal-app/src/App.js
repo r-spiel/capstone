@@ -11,10 +11,8 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
-import SplashPage from './components/SplashPage';
 import Home from './components/Home';
-import AddNewPlantForm from './components/AddNewPlantForm';
-import addFromDatabase from './components/AddFromDatabase';
+import AddFromDatabase from './components/AddFromDatabase';
 
 const API_URL_BASE = 'http://localhost:8080'
 
@@ -57,12 +55,6 @@ function App() {
     }
   }
 
-  const addFromDatabase = () => {
-    return (
-      <addFromDatabase />
-    )
-  }
-
   return (
     <Router>
       <body>
@@ -81,14 +73,16 @@ function App() {
         </header>
       
         <main className="container">
-          { !localStorage.get('user') ? <SplashPage /> : <Home url={API_URL_BASE} /> }
+          <Switch>
+            <Route exact path="/" ><Home url={API_URL_BASE} /></Route>
+            <Route path='/addFromDatabase'><AddFromDatabase url={API_URL_BASE} /></Route>
+          </Switch>
+          
         </main>
 
         <footer><p>Footer</p></footer>
 
-        <Switch>
-          <Route path='/addFromDatabase' component={addFromDatabase} />
-        </Switch>
+
 
       </body>
     </Router>

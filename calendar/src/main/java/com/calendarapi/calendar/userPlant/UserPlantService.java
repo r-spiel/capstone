@@ -56,36 +56,33 @@ public class UserPlantService {
 
     // Update
     @Transactional
-    public void updateUserPlant(Long userPlantId,
-                                String name,
-                                String scientificName,
-                                String notes,
-                                Integer lifespan,
-                                Integer harvest,
-                                String sunRequirement) {
-        UserPlant userPlant = userPlantRepository.findById(userPlantId)
+    public void updateUserPlant(Long userPlantId, UserPlant updatedUserPlant) {
+        UserPlant foundUserPlant = userPlantRepository.findById(userPlantId)
                 .orElseThrow(() -> new IllegalStateException("User Plant with ID: " + userPlantId + "does not exist"));
 
-        if (name != null && name.length() > 0 ) {
-            userPlant.setName(name);
+        if (updatedUserPlant.getName() != null && updatedUserPlant.getName().length() > 0 ) {
+            foundUserPlant.setName(updatedUserPlant.getName());
         }
-        if (scientificName != null && scientificName.length() > 0 ) {
-            userPlant.setScientificName(scientificName);
+        if (updatedUserPlant.getScientificName() != null && updatedUserPlant.getScientificName().length() > 0 ) {
+            foundUserPlant.setScientificName(updatedUserPlant.getScientificName());
         }
-        if (notes != null && notes.length() > 0 ) {
-            userPlant.setNotes(notes);
+        if (updatedUserPlant.getName() != null && updatedUserPlant.getName().length() > 0 ) {
+            foundUserPlant.setNotes(updatedUserPlant.getName());
         }
-        if (lifespan != null && lifespan > 0 ) {
-            userPlant.setLifespan(lifespan);
+        if (updatedUserPlant.getLifespan() != null && updatedUserPlant.getLifespan() > 0 ) {
+            foundUserPlant.setLifespan(updatedUserPlant.getLifespan());
         }
-        if (harvest != null && harvest > 0 ) {
-            userPlant.setHarvest(harvest);
+        if (updatedUserPlant.getHarvest() != null && updatedUserPlant.getLifespan() > 0 ) {
+            foundUserPlant.setHarvest(updatedUserPlant.getLifespan());
         }
-        if (sunRequirement != null && sunRequirement.length() > 0 ) {
-            userPlant.setSunRequirement(sunRequirement);
+        if (updatedUserPlant.getSunRequirement() != null && updatedUserPlant.getSunRequirement().length() > 0 ) {
+            foundUserPlant.setSunRequirement(updatedUserPlant.getSunRequirement());
+        }
+        if (updatedUserPlant.getImageUrl() != null ) {
+            foundUserPlant.setImageUrl(updatedUserPlant.getImageUrl());
         }
 
-        userPlantRepository.save(userPlant);
+        userPlantRepository.save(foundUserPlant);
     }
 
     public void deleteUserPlant(Long userPlantId) {
