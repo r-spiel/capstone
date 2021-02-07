@@ -20,7 +20,7 @@ const Plant = (props) => {
       // const userData = response.data;
       
       // redirect to home
-
+      props.refreshPage()
       console.log(response)
       console.log(response.data)
 

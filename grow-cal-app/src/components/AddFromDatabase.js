@@ -32,7 +32,7 @@ const AddFromDatabase = ({url}) => {
     })
     .catch((error) => {
       // seterrorMessage(error.response);
-      setErrorMessage("Plant could not be added, check logs")
+      setErrorMessage("Error, plant could not be added.  Make sure to use a different name from any plant that already exists in your garden.")
       console.log(error.response);
       // axios error.response, sep from error.message
     });

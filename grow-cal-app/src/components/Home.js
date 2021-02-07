@@ -19,6 +19,10 @@ const Home = ({url}) => {
     setShowNewPlantForm(boolean)
   }
 
+  const refreshPage = () => {
+    window.location.reload()
+  }
+
   // GET - initial API call to set the user's Plant list
   useEffect(() => {
     axios.get(`${url}/users/${localStorage.get('id')}/plants`)
@@ -37,7 +41,8 @@ const Home = ({url}) => {
     axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
     .then((response) => {
       const userData = response.data;
-      
+      refreshPage()
+
       console.log(response)
       console.log(userData)
 
@@ -53,7 +58,7 @@ const Home = ({url}) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
       // const userData = response.data;
-      
+      refreshPage()
       console.log(response)
       console.log(response.data)
 
@@ -87,7 +92,7 @@ const Home = ({url}) => {
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
-        { plantList.length > 0 ? <Plants plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        { plantList.length > 0 ? <Plants refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
         <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
       </div>
     )
