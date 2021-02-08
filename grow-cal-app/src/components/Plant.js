@@ -20,11 +20,6 @@ const Plant = (props) => {
     props.deletePlant(id)
   }
 
-  // add Event to this plant
-  console.log(eventList)
-
-
-
   return (
     <div className="card">
       <span>

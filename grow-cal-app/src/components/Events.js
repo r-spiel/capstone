@@ -14,12 +14,15 @@ const Events = ({eventList}) => {
   //   "notes": "Some notes about this event"
   // }
 
+  //   //date math
+  // moment('2016-03-12 13:00:00').add(1, 'day').format('LLL')
+  // "March 13, 2016 1:00 PM"
+
   const eventMap = eventList.map((singleEvent) => {
     return (
       <div className="card" key={singleEvent.id}>
         <p>Event title: {singleEvent.title}</p>
         <p>Start Date/Time: {singleEvent.startTime} End Date/Time: {singleEvent.endTime}</p>
-        <p>Details: {singleEvent.notes}</p>
       </div>
     )
   })

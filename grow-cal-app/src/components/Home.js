@@ -7,13 +7,53 @@ import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
 import { useHistory, Link } from 'react-router-dom'
 import SplashPage from './SplashPage';
+import moment from 'moment';
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
+  const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
   const [selectedPlant, setSelectedPlant] = useState(null)
   const [newPlantError, setNewPlantError] = useState("")
+  
+  const makeEventList = (listOfPlants) => {
+    let listOfEvents = []
+    listOfPlants.forEach(plant => {
+      plant.eventList.forEach(singleEvent => {
+  
+        listOfEvents.push({
+          start: singleEvent.startTime,
+          end: singleEvent.endTime,
+          title: singleEvent.title
+        })
+      }
+      )
+    })
+  
+    setEventList(listOfEvents)
+    console.log(listOfEvents)
+  }
+
+
+  // for (let i = 0; i < plantList.length; i++) {
+  //   for (let j = 0; j < plantList[i].eventList.length; j++ ) {
+  //     listOfEvents.push(plantList[i].eventList[j])
+  //   }
+  // }
+
+  // const listEvents = plantList.map((plant) => {
+  //   if (plant.eventList > 0) {
+  //     plant.eventList.map((singleEvent) => {
+  //       return (
+  //         singleEvent
+  //       )
+  //     })
+  //   }
+    
+  // })
+
+  // console.log(eventList)
 
   const changeShowNewPlantForm = (boolean) => {
     setShowNewPlantForm(boolean)
@@ -30,6 +70,7 @@ const Home = ({url}) => {
         const usersPlantList = response.data;
         console.log(usersPlantList)
         setPlantList(usersPlantList);
+        makeEventList(usersPlantList)
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -107,6 +148,8 @@ const Home = ({url}) => {
     });
   }
 
+  console.log(eventList)
+
   if ( !localStorage.get('user') ) {
     return (
       <SplashPage />
@@ -115,7 +158,7 @@ const Home = ({url}) => {
     return (
       <div>
         <p>Homepage for logged in users</p>
-        <MyCalendar />
+        <MyCalendar eventList={eventList} />
   
   
         <h2>My Plant List</h2>

@@ -4,14 +4,14 @@ import localStorage from 'local-storage';
 
 const localizer = momentLocalizer(moment)
 
-const MyCalendar = (props) => {
+const MyCalendar = ({eventList}) => {
   const myEventsList = []
 
   return (
     <div className="calendar">
       <Calendar
         localizer={localizer}
-        events={myEventsList}
+        events={eventList}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
