@@ -1,21 +1,21 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+// import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import localStorage from 'local-storage';
 
-const localizer = momentLocalizer(moment)
+// const localizer = momentLocalizer(moment)
 
 const MyCalendar = ({eventList}) => {
   const myEventsList = []
 
   return (
     <div className="calendar">
-      <Calendar
+      {/* <Calendar
         localizer={localizer}
         events={eventList}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
-      />
+      /> */}
     </div>
   )
 }
