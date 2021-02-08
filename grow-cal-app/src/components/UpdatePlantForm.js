@@ -70,7 +70,7 @@ const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
     event.preventDefault()
 
     if (formFields.name !== null ) { //and check that the name isn't already in the list
-      editRequestCallback(formFields)
+      editRequestCallback(formFields, plantObj.id)
       
       // refresh the page
 

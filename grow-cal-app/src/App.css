@@ -18,3 +18,7 @@ html, body {
 .calendar {
   background-color: white;
 }
+
+.title-inline {
+  display: inline;
+}

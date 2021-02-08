@@ -45,12 +45,6 @@ public class UserPlantController {
     public void updateUserPlant(
             @PathVariable("userPlantId") Long userPlantId,
             @RequestBody UserPlant updatedUserPlant
-//            @RequestParam(required = false) String name,
-//            @RequestParam(required = false) String scientificName,
-//            @RequestParam(required = false) String notes,
-//            @RequestParam(required = false) Integer lifespan,
-//            @RequestParam(required = false) Integer harvest,
-//            @RequestParam(required = false) String sunRequirement
     ) {
         userPlantService.updateUserPlant(userPlantId, updatedUserPlant);
     }

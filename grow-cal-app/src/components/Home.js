@@ -54,6 +54,24 @@ const Home = ({url}) => {
     });
   }
 
+  // PUT (update) plant
+  const editPlantCallback = (editForm, id) => {
+    axios.put(`${url}/userPlants/${id}`, editForm)
+    .then((response) => {
+      console.log(editForm)
+      // redirect to home
+      refreshPage()
+      console.log(response)
+      console.log(response.data)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      // axios error.response, sep from error.message
+    });
+  }
+
   const deletePlant = (plantId) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
@@ -70,6 +88,24 @@ const Home = ({url}) => {
     });
   }
 
+  // EVENTS
+  // ADD NEW EVENT: 
+  const addEventToPlant = (eventObj, plantId) => {
+    axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
+    .then((response) => {
+      const userData = response.data;
+      refreshPage()
+
+      console.log(response)
+      console.log(userData)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      // axios error.response, sep from error.message
+    });
+  }
 
   if ( !localStorage.get('user') ) {
     return (
@@ -92,7 +128,7 @@ const Home = ({url}) => {
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
-        { plantList.length > 0 ? <Plants refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
         <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
       </div>
     )
@@ -105,19 +141,3 @@ Home.propTypes = {
 };
 
 export default Home
-
-  // const getPlantsList = () => {
-  //   axios.get(`${url}/users/${localStorage.get('id')}/plants`)
-  //   .then((response) => {
-  //     const userData = response.data;
-  //     setCurrentUserCallback(userData)
-  //     buttonTextCallback()
-  //     console.log(userData)
-
-  //   })
-  //   .catch((error) => {
-  //     seterrorMessageLogin(error.response.data.message);
-  //     console.log(error);
-  //     // axios error.response, sep from error.message
-  //   });
-  // }

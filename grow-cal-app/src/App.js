@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
-import AddFromDatabase from './components/AddFromDatabase';
+import AddFromDatabase from './components/fromDB/AddFromDatabase';
 
 const API_URL_BASE = 'http://localhost:8080'
 
