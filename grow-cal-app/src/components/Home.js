@@ -7,16 +7,60 @@ import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
 import { useHistory, Link } from 'react-router-dom'
 import SplashPage from './SplashPage';
+import moment from 'moment';
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
+  const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
   const [selectedPlant, setSelectedPlant] = useState(null)
   const [newPlantError, setNewPlantError] = useState("")
+  
+  const makeEventList = (listOfPlants) => {
+    let listOfEvents = []
+    listOfPlants.forEach(plant => {
+      plant.eventList.forEach(singleEvent => {
+  
+        listOfEvents.push({
+          start: singleEvent.startTime,
+          end: singleEvent.endTime,
+          title: singleEvent.title
+        })
+      }
+      )
+    })
+  
+    setEventList(listOfEvents)
+    console.log(listOfEvents)
+  }
+
+
+  // for (let i = 0; i < plantList.length; i++) {
+  //   for (let j = 0; j < plantList[i].eventList.length; j++ ) {
+  //     listOfEvents.push(plantList[i].eventList[j])
+  //   }
+  // }
+
+  // const listEvents = plantList.map((plant) => {
+  //   if (plant.eventList > 0) {
+  //     plant.eventList.map((singleEvent) => {
+  //       return (
+  //         singleEvent
+  //       )
+  //     })
+  //   }
+    
+  // })
+
+  // console.log(eventList)
 
   const changeShowNewPlantForm = (boolean) => {
     setShowNewPlantForm(boolean)
+  }
+
+  const refreshPage = () => {
+    window.location.reload()
   }
 
   // GET - initial API call to set the user's Plant list
@@ -26,6 +70,7 @@ const Home = ({url}) => {
         const usersPlantList = response.data;
         console.log(usersPlantList)
         setPlantList(usersPlantList);
+        makeEventList(usersPlantList)
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -37,9 +82,28 @@ const Home = ({url}) => {
     axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
     .then((response) => {
       const userData = response.data;
-      
+      refreshPage()
+
       console.log(response)
       console.log(userData)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      // axios error.response, sep from error.message
+    });
+  }
+
+  // PUT (update) plant
+  const editPlantCallback = (editForm, id) => {
+    axios.put(`${url}/userPlants/${id}`, editForm)
+    .then((response) => {
+      console.log(editForm)
+      // redirect to home
+      refreshPage()
+      console.log(response)
+      console.log(response.data)
 
     })
     .catch((error) => {
@@ -53,7 +117,7 @@ const Home = ({url}) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
       // const userData = response.data;
-      
+      refreshPage()
       console.log(response)
       console.log(response.data)
 
@@ -65,6 +129,26 @@ const Home = ({url}) => {
     });
   }
 
+  // EVENTS
+  // ADD NEW EVENT: 
+  const addEventToPlant = (eventObj, plantId) => {
+    axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
+    .then((response) => {
+      const userData = response.data;
+      refreshPage()
+
+      console.log(response)
+      console.log(userData)
+
+    })
+    .catch((error) => {
+      // seterrorMessage(error.response);
+      console.log(error.response);
+      // axios error.response, sep from error.message
+    });
+  }
+
+  console.log(eventList)
 
   if ( !localStorage.get('user') ) {
     return (
@@ -74,7 +158,7 @@ const Home = ({url}) => {
     return (
       <div>
         <p>Homepage for logged in users</p>
-        <MyCalendar />
+        <MyCalendar eventList={eventList} />
   
   
         <h2>My Plant List</h2>
@@ -87,7 +171,7 @@ const Home = ({url}) => {
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
-        { plantList.length > 0 ? <Plants plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
         <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
       </div>
     )
@@ -100,19 +184,3 @@ Home.propTypes = {
 };
 
 export default Home
-
-  // const getPlantsList = () => {
-  //   axios.get(`${url}/users/${localStorage.get('id')}/plants`)
-  //   .then((response) => {
-  //     const userData = response.data;
-  //     setCurrentUserCallback(userData)
-  //     buttonTextCallback()
-  //     console.log(userData)
-
-  //   })
-  //   .catch((error) => {
-  //     seterrorMessageLogin(error.response.data.message);
-  //     console.log(error);
-  //     // axios error.response, sep from error.message
-  //   });
-  // }
