@@ -28,9 +28,6 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
     
   }
 
-    //   //date math
-    // moment('2016-03-12 13:00:00').add(1, 'day').format('LLL')
-    // "March 13, 2016 1:00 PM"
   return (
     <div>
       <p>NEW EVENT FORM</p>
@@ -38,9 +35,9 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
         <label>Event Title: </label>
         <input id="startTime" name="title" onChange={onInputChange} value={formFields.title} type="text" className="form-control"/>
 
-        <label>Start Time: * use format: Month day, YEAR HH:MM AM *</label>
-        <p>For example: March 13, 2021 1:00 PM</p>
-        <input id="startTime" name="startTime" onChange={onInputChange} value={formFields.startTime} placeholder="format: March 13, 2021 1:00 PM" type="text" className="form-control"/>
+        <label>Start Time: * use format: 2019-08-12T10:30:00.000Z *</label>
+        <p>For example: 2021-02-10T11:30:00.000Z</p>
+        <input id="startTime" name="startTime" onChange={onInputChange} value={formFields.startTime} placeholder="format: 2021-02-10T11:30:00.000Z" type="text" className="form-control"/>
 
         <label>End Time: </label>
         <input id="endTime" name="endTime" onChange={onInputChange} value={formFields.endTime} placeholder="insert day/time format" type="text" className="form-control"/>

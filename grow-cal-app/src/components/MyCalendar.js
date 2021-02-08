@@ -1,21 +1,27 @@
-// import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import localStorage from 'local-storage';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+// import interactionPlugin from '@fullcalendar/interaction' // needed for dayClick
+// import timeGridPlugin from '@fullcalendar/timegrid';
 
-// const localizer = momentLocalizer(moment)
 
 const MyCalendar = ({eventList}) => {
-  const myEventsList = []
 
   return (
-    <div className="calendar">
-      {/* <Calendar
-        localizer={localizer}
-        events={eventList}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-      /> */}
+    <div id='calendar' className="calendar">
+      <FullCalendar
+        initialView="dayGridMonth"
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        }}
+        plugins={[ dayGridPlugin, timeGridPlugin ]}
+        weekends={ true }
+        events={ eventList }
+      />
     </div>
   )
 }

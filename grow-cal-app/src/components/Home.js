@@ -5,7 +5,7 @@ import MyCalendar from './MyCalendar';
 import Plants from "./Plants";
 import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SplashPage from './SplashPage';
 import moment from 'moment';
 
@@ -25,7 +25,8 @@ const Home = ({url}) => {
         listOfEvents.push({
           start: singleEvent.startTime,
           end: singleEvent.endTime,
-          title: singleEvent.title
+          title: singleEvent.title,
+          allDay: false
         })
       }
       )
@@ -34,26 +35,6 @@ const Home = ({url}) => {
     setEventList(listOfEvents)
     console.log(listOfEvents)
   }
-
-
-  // for (let i = 0; i < plantList.length; i++) {
-  //   for (let j = 0; j < plantList[i].eventList.length; j++ ) {
-  //     listOfEvents.push(plantList[i].eventList[j])
-  //   }
-  // }
-
-  // const listEvents = plantList.map((plant) => {
-  //   if (plant.eventList > 0) {
-  //     plant.eventList.map((singleEvent) => {
-  //       return (
-  //         singleEvent
-  //       )
-  //     })
-  //   }
-    
-  // })
-
-  // console.log(eventList)
 
   const changeShowNewPlantForm = (boolean) => {
     setShowNewPlantForm(boolean)
