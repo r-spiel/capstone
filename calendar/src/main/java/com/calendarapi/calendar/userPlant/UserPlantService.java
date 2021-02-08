@@ -66,8 +66,8 @@ public class UserPlantService {
         if (updatedUserPlant.getScientificName() != null && updatedUserPlant.getScientificName().length() > 0 ) {
             foundUserPlant.setScientificName(updatedUserPlant.getScientificName());
         }
-        if (updatedUserPlant.getName() != null && updatedUserPlant.getName().length() > 0 ) {
-            foundUserPlant.setNotes(updatedUserPlant.getName());
+        if (updatedUserPlant.getNotes() != null && updatedUserPlant.getNotes().length() > 0 ) {
+            foundUserPlant.setNotes(updatedUserPlant.getNotes());
         }
         if (updatedUserPlant.getLifespan() != null && updatedUserPlant.getLifespan() > 0 ) {
             foundUserPlant.setLifespan(updatedUserPlant.getLifespan());

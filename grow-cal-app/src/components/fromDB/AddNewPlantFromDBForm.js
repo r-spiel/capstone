@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import localStorage from 'local-storage';
 
 const FORM_FIELDS = [
@@ -39,7 +39,7 @@ const FORM_FIELDS = [
   }
 ]
 
-const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
+const AddNewPlantFromDBForm = ({plantObj, addPlantCallback, hidePlantForm}) => {
   const defaultFormFields = {
     "name": plantObj.name,
     "scientificName": plantObj.scientificName,
@@ -61,23 +61,18 @@ const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
     };
 
     newFormFields[event.target.name] = event.target.value;
-    // let updatedUserPlant = newFormFields
-    // updatedUserPlant["id"] = plantObj.id
     setFormFields(newFormFields);
   };
 
   const onFormSubmit = event => {
     event.preventDefault()
 
-    if (formFields.name !== null ) { //and check that the name isn't already in the list
-      editRequestCallback(formFields, plantObj.id)
-      
-      // refresh the page
-
+    if (formFields.name !== null ) {
+      addPlantCallback(formFields)
+      hidePlantForm()
       setFormFields(defaultFormFields)
     } else {
-      setErrorMessage("UpdatePlantForm.js error")
-      console.log("UpdatePlantForm.js error")
+      setErrorMessage("Name cannot be blank")
     }
     
   }
@@ -97,12 +92,12 @@ const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
 
   return (
     <div className="card p-2">
-      <p>EDIT {plantObj.name}</p>
-      <p>*plant name must be unique*</p>
+      <p>Add {plantObj.name} to your Garden</p>
+      <p>*plant name must be unique compared to the plant names in your Garden*</p>
       <div className="text-danger">{ errorMessage !== "" ? errorMessage : null }</div>
       <form onSubmit={onFormSubmit}>
         {inputBoxes}
-        <input type="submit" value="Update Plant" className="submit-btn" />
+        <input type="submit" value="Add Plant" className="submit-btn" />
       </form>
       
     </div>
@@ -110,4 +105,4 @@ const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
 
 }
 
-export default UpdatePlantForm
+export default AddNewPlantFromDBForm

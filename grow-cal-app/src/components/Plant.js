@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import localStorage from 'local-storage';
 import axios from 'axios';
 import UpdatePlantForm from './UpdatePlantForm'
+import Events from './Events'
+import NewEventForm from './NewEventForm';
 
 const Plant = (props) => {
   const [showEditPlantForm, setShowEditPlantForm] = useState(false)
+  const [showNewEventForm, setShowNewEventForm] = useState(false)
+  const [eventList, setEventList] = useState(
+    props.plantObj.eventList
+  )
 
   const plantObj = props.plantObj
 
@@ -14,28 +20,10 @@ const Plant = (props) => {
     props.deletePlant(id)
   }
 
-  const editPlantCallback = (editForm) => {
-    axios.put(`${props.url}/userPlants/${id}`, editForm)
-    .then((response) => {
-      // const userData = response.data;
-      
-      // redirect to home
-
-      console.log(response)
-      console.log(response.data)
-
-    })
-    .catch((error) => {
-      // seterrorMessage(error.response);
-      console.log(error.response);
-      // axios error.response, sep from error.message
-    });
-  }
-
   return (
     <div className="card">
       <span>
-        {plantObj.name} ({plantObj.scientificName}) - {plantObj.notes}
+      <h4 className="title-inline">{plantObj.name} ({plantObj.scientificName})</h4>
         
         <button type="button" className="btn text-info" onClick={ () => setShowEditPlantForm(!showEditPlantForm) } >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -51,8 +39,15 @@ const Plant = (props) => {
           </svg>
         </button>
       </span>
+      <p>Notes: {plantObj.notes}</p>
       <p>{plantObj.sunRequirement}, Lifespan: {plantObj.lifespan}, Weeks to harvest from planting: {plantObj.harvest}</p>
-      { showEditPlantForm ? <UpdatePlantForm plantObj={plantObj} editRequestCallback={editPlantCallback} /> : null}
+      { showEditPlantForm ? <UpdatePlantForm plantObj={plantObj} editRequestCallback={props.editPlantCallback} /> : null}
+      <span>
+        <h4 className="title-inline">Events for {plantObj.name}:</h4>
+        <button onClick={ () => setShowNewEventForm(!showNewEventForm) } >Add Event</button>
+      </span>
+      { eventList.length > 0 ? <Events eventList={eventList} /> : "Add some events to your plant!" }
+      { showNewEventForm ? <NewEventForm newEventCallback={props.newEventCallback} plantName={props.plantObj.name} plantId={id} /> : null }
     </div>
   )
 
