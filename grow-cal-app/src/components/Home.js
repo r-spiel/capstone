@@ -115,12 +115,8 @@ const Home = ({url}) => {
   const addEventToPlant = (eventObj, plantId) => {
     axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
     .then((response) => {
-      const userData = response.data;
       refreshPage()
-
       console.log(response)
-      console.log(userData)
-
     })
     .catch((error) => {
       // seterrorMessage(error.response);

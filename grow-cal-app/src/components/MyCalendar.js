@@ -3,6 +3,7 @@ import localStorage from 'local-storage';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
+import listPlugin from '@fullcalendar/list'
 // import interactionPlugin from '@fullcalendar/interaction' // needed for dayClick
 // import timeGridPlugin from '@fullcalendar/timegrid';
 
@@ -18,7 +19,7 @@ const MyCalendar = ({eventList}) => {
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         }}
-        plugins={[ dayGridPlugin, timeGridPlugin ]}
+        plugins={[ dayGridPlugin, timeGridPlugin, listPlugin ]}
         weekends={ true }
         events={ eventList }
       />
