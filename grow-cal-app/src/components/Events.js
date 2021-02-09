@@ -6,18 +6,6 @@ import localStorage from 'local-storage';
 
 const Events = ({eventList}) => {
 
-  // An event looks like this: 
-  // {
-  //   "title": "Tomatoes - plant",
-  //   "startTime": "2021-2-5:time",
-  //   "endTime": "2021-2-5:time",
-  //   "notes": "Some notes about this event"
-  // }
-
-  //   //date math
-  // moment('2016-03-12 13:00:00').add(1, 'day').format('LLL')
-  // "March 13, 2016 1:00 PM"
-
   const eventMap = eventList.map((singleEvent) => {
     return (
       <div className="card" key={singleEvent.id}>
@@ -29,7 +17,6 @@ const Events = ({eventList}) => {
 
   return (
     <div>
-      <p>Events go here</p>
       {eventMap}
     </div>
   )
