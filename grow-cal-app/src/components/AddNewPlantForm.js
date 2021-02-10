@@ -34,7 +34,7 @@ const FORM_FIELDS = [
   },
   {
     "key": "imageUrl",
-    "label": "Image URL: ",
+    "label": "Image URL: image url, or leave blank for default image",
     "placeholder": "image url, or leave blank for default image"
   }
 ]
@@ -47,7 +47,7 @@ const AddNewPlantForm = (props) => {
     "lifespan": null,
     "harvest": null,
     "sunRequirement": null,
-    "imageUrl": null
+    "imageUrl": "https://i.ibb.co/YTxPjdb/plant-svg.png"
   }
   
   const [formFields, setFormFields] = useState(defaultFormFields)

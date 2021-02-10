@@ -25,9 +25,9 @@ const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEv
   })
 
   return (
-    <div>
+    <span className="row m-5">
       {plantComponents}
-    </div>
+    </span>
   )
 }
 
