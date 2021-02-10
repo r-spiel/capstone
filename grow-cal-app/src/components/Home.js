@@ -14,9 +14,18 @@ const Home = ({url}) => {
   const [plantList, setPlantList] = useState([])
   const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
-  const [selectedPlant, setSelectedPlant] = useState(null)
+  const [selectedPlants, setSelectedPlants] = useState([])
   const [newPlantError, setNewPlantError] = useState("")
   
+  const addPlantToSelected = (plantObj) => {
+    const updatedSelectedPLantsList = [...selectedPlants, plantObj]
+    setSelectedPlants(updatedSelectedPLantsList)
+  }
+
+  const clearSelectedPlantList = () => {
+    setSelectedPlants([])
+  }
+
   const makeEventList = (listOfPlants) => {
     let listOfEvents = []
     listOfPlants.forEach(plant => {
@@ -33,7 +42,7 @@ const Home = ({url}) => {
     })
   
     setEventList(listOfEvents)
-    console.log(listOfEvents)
+    // console.log(listOfEvents)
   }
 
   const changeShowNewPlantForm = (boolean) => {
@@ -58,12 +67,28 @@ const Home = ({url}) => {
       });
   }, []);
 
+  const getPlantsList = () => {
+    axios.get(`${url}/users/${localStorage.get('id')}/plants`)
+    .then((response) => {
+      const usersPlantList = response.data;
+      console.log(usersPlantList)
+      setPlantList(usersPlantList);
+      makeEventList(usersPlantList)
+    })
+    .catch((error) => {
+      setErrorMessage(error.response.data.message);
+    });
+  }
+
+
   // POST new plant to user's list
   const addPlantToAPI = (plantObj) => {
     axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
     .then((response) => {
       const userData = response.data;
-      refreshPage()
+      // refreshPage()
+
+      getPlantsList()
 
       console.log(response)
       console.log(userData)

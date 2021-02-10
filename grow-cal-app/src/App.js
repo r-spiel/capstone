@@ -58,7 +58,7 @@ function App() {
 
   return (
     <Router>
-      <body>
+   
 
         <header>
           <nav className="navbar navbar-light">
@@ -85,7 +85,7 @@ function App() {
 
 
 
-      </body>
+
     </Router>
 
   );

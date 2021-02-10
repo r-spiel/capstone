@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Plant from './Plant'
+import PlantDetails from './PlantDetails'
 import localStorage from 'local-storage';
 
 const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEventCallback }) => {
@@ -10,6 +11,7 @@ const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEv
 
   const plantComponents = plants.map((plant) => {
     return (
+
       <Plant 
         plantObj={plant} 
         key={plant.id} 
