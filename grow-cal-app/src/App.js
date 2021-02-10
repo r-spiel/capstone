@@ -18,7 +18,7 @@ const API_URL_BASE = 'http://localhost:8080'
 // const API_URL_BASE = 'https://thawing-spire-97162.herokuapp.com/'
 
 function App() {
-  // const [authenticated, setAuthenticated] = useState(false);
+
   const [showLogin, setShowLogin] = useState(false);
 
   let buttonText = ""
@@ -64,7 +64,6 @@ function App() {
           <nav className="navbar navbar-light">
           <a href="/" className="title navbar-brand">Grow-Cal App</a>
             <ul className="navbar-nav">
-              <li className="nav-item">About</li>
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
                 <button onClick={ onLoginLogoutClick } className="nav-item" >{ buttonLoginText }</button></li>
                 { showLogin ? <LoginForm url={API_URL_BASE} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }

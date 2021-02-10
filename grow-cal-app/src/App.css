@@ -40,3 +40,7 @@ html, body {
   width: 75px;
   display: inline;
 }
+
+.selected {
+  border: thick #39FF14;
+}
