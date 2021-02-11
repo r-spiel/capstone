@@ -19,6 +19,10 @@ const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEv
     setSelectedPlants([])
     setSelectionsCleared(true)
   }
+
+  const resetSelectionsCleared = () => {
+    setSelectionsCleared(false)
+  }
   
   const deleteFromSelectedList = (plantId) => {
     let updatedSelectedPLantsList = [...selectedPlants]
@@ -38,7 +42,8 @@ const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEv
         key={plant.id} 
         plantObj={plant} 
 
-        areSelectionsCleared={selectionsCleared}
+        resetSelectionsCleared={resetSelectionsCleared}
+        areSelectionsCleared={selectionsCleared} //will be true or false
         addPlantToSelected={addPlantToSelected}
         unselectFromList={deleteFromSelectedList}
       />
