@@ -45,15 +45,23 @@ const PlantDetails = (props) => {
         </span>
         
       </span>
-      <p>Scientific Name: {plantObj.scientificName}</p>
-      <p>Notes: {plantObj.notes}</p>
-      <p>{plantObj.sunRequirement}, Lifespan: {plantObj.lifespan}, Weeks to harvest from planting: {plantObj.harvest}</p>
+      { plantObj.scientificName ? <p>Scientific Name: {plantObj.scientificName}</p>: null }
+      {/* <p>Scientific Name: {plantObj.scientificName}</p> */}
+      { plantObj.notes ? <p>Notes: {plantObj.notes}</p> : null }
+      { plantObj.sunRequirement ? <p>Sun Requirment: {plantObj.sunRequirement}</p> : null }
+      { plantObj.lifespan ? <p>Lifespan: {plantObj.lifespan} weeks </p> : null }
+      { plantObj.harvest ? <p>Median Harvest Time: {plantObj.harvest} weeks after planting </p> : null }
+
       { showEditPlantForm ? <UpdatePlantForm plantObj={plantObj} editRequestCallback={props.editPlantCallback} /> : null}
-      <span>
-        <h4 className="title-inline">Events for {plantObj.name}:</h4>
-        <button onClick={ () => setShowNewEventForm(!showNewEventForm) } >Add Event</button>
-      </span>
-      { eventList.length > 0 ? <Events eventList={eventList} /> : "Add some events to your plant!" }
+      
+      <div>
+        <span>
+          <h4 className="title-inline">Events for {plantObj.name}:</h4>
+          <button onClick={ () => setShowNewEventForm(!showNewEventForm) } className="float-right" >Add Event</button>
+        </span>
+      </div>
+  
+      { eventList.length > 0 ? <Events eventList={eventList} /> : `No events for ${plantObj.name}` }
       { showNewEventForm ? <NewEventForm newEventCallback={props.newEventCallback} plantName={props.plantObj.name} plantId={id} /> : null }
       </div>
       

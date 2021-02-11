@@ -31,7 +31,6 @@ function App() {
   const [buttonLoginText, setButtonLoginText] = useState(buttonText)
 
   const saveCurrentUser = (user) => {
-    // setCurrentUser(user)
     localStorage.set('user', user.userName)
     localStorage.set('id', user.id)
     console.log(localStorage.get('user'))

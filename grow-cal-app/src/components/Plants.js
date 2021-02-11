@@ -66,6 +66,7 @@ const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEv
   return (
     <div>
       <button onClick={clearSelectedPlantList} >Clear Selected Plants</button>
+      <p>Select a plant to view it's details and see more options:</p>
       <span className="row m-5">
         {plantIconComponents}
       </span>

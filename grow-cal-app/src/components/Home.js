@@ -176,7 +176,7 @@ const Home = ({url}) => {
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
         { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
-        <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
+        {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
       </div>
     )
   }
