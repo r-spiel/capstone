@@ -22,3 +22,25 @@ html, body {
 .title-inline {
   display: inline;
 }
+
+.plant-icon-card {
+  width: 125px;
+  background-color: #39595C;
+  color: white;
+}
+
+.plant-icon-title {
+  padding: 0%;
+  margin: 0%;
+  font-size: smaller;
+  text-align: center;
+}
+
+.plant-details-icon {
+  width: 75px;
+  display: inline;
+}
+
+.selected {
+  border: thick #39FF14;
+}

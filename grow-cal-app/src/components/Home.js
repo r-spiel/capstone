@@ -14,26 +14,48 @@ const Home = ({url}) => {
   const [plantList, setPlantList] = useState([])
   const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
-  const [selectedPlant, setSelectedPlant] = useState(null)
+  const [selectedPlants, setSelectedPlants] = useState([])
   const [newPlantError, setNewPlantError] = useState("")
   
+  // const addPlantToSelected = (plantObj) => {
+  //   const updatedSelectedPLantsList = [...selectedPlants, plantObj]
+  //   setSelectedPlants(updatedSelectedPLantsList)
+  // }
+
+  // const clearSelectedPlantList = () => {
+  //   setSelectedPlants([])
+  // }
+
   const makeEventList = (listOfPlants) => {
     let listOfEvents = []
     listOfPlants.forEach(plant => {
-      plant.eventList.forEach(singleEvent => {
+        plant.eventList.forEach(singleEvent => {
   
-        listOfEvents.push({
-          start: singleEvent.startTime,
-          end: singleEvent.endTime,
-          title: singleEvent.title,
-          allDay: false
-        })
-      }
-      )
+          listOfEvents.push({
+            start: singleEvent.startTime,
+            end: singleEvent.endTime,
+            title: singleEvent.title,
+            allDay: false
+          })
+        }
+        )
+    // listOfPlants.forEach(plant => {
+    //   if (plant.eventList > 0) {
+    //     plant.eventList.forEach(singleEvent => {
+  
+    //       listOfEvents.push({
+    //         start: singleEvent.startTime,
+    //         end: singleEvent.endTime,
+    //         title: singleEvent.title,
+    //         allDay: false
+    //       })
+    //     }
+    //     )
+    //   }
     })
   
     setEventList(listOfEvents)
-    console.log(listOfEvents)
+    // console.log(listOfEvents)
   }
 
   const changeShowNewPlantForm = (boolean) => {
@@ -46,25 +68,29 @@ const Home = ({url}) => {
 
   // GET - initial API call to set the user's Plant list
   useEffect(() => {
-    axios.get(`${url}/users/${localStorage.get('id')}/plants`)
-      .then((response) => {
-        const usersPlantList = response.data;
-        console.log(usersPlantList)
-        setPlantList(usersPlantList);
-        makeEventList(usersPlantList)
-      })
-      .catch((error) => {
-        setErrorMessage(error.response.data.message);
-      });
+    getPlantsList()
   }, []);
+
+  const getPlantsList = () => {
+    axios.get(`${url}/users/${localStorage.get('id')}/plants`)
+    .then((response) => {
+      const usersPlantList = response.data;
+      console.log(usersPlantList)
+      setPlantList(usersPlantList);
+      makeEventList(usersPlantList)
+    })
+    .catch((error) => {
+      setErrorMessage(error.response.data.message);
+    });
+  }
+
 
   // POST new plant to user's list
   const addPlantToAPI = (plantObj) => {
     axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
     .then((response) => {
       const userData = response.data;
-      refreshPage()
-
+      getPlantsList()
       console.log(response)
       console.log(userData)
 
@@ -82,9 +108,7 @@ const Home = ({url}) => {
     .then((response) => {
       console.log(editForm)
       // redirect to home
-      refreshPage()
-      console.log(response)
-      console.log(response.data)
+      getPlantsList()
 
     })
     .catch((error) => {
@@ -98,7 +122,9 @@ const Home = ({url}) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
       // const userData = response.data;
-      refreshPage()
+      // refreshPage()
+
+      getPlantsList()
       console.log(response)
       console.log(response.data)
 
@@ -115,7 +141,9 @@ const Home = ({url}) => {
   const addEventToPlant = (eventObj, plantId) => {
     axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
     .then((response) => {
-      refreshPage()
+
+      getPlantsList();
+      // refreshPage()
       console.log(response)
     })
     .catch((error) => {
@@ -134,7 +162,6 @@ const Home = ({url}) => {
   } else {
     return (
       <div>
-        <p>Homepage for logged in users</p>
         <MyCalendar eventList={eventList} />
   
   
@@ -149,7 +176,7 @@ const Home = ({url}) => {
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
         { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
-        <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div>
+        {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
       </div>
     )
   }
