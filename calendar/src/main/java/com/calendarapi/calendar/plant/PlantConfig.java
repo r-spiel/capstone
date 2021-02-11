@@ -20,21 +20,41 @@ public class PlantConfig {
                     21,
                     13,
                     "full sun",
-                    "update for image url"
+                    "https://i.ibb.co/sqn4Xqb/tomato.jpg"
             );
 
-            Plant lettuce = new Plant(
-                    "Lettuce",
-                    "Lactuca sativa",
-                    "Lettuce is a cool weather crop and high temperatures will impede germination and/or cause the plant to bolt (go to seed quickly). Some hybrid cultivars have been bred to be more heat-resistant.",
-                    15,
-                    5,
-                    "partial sun",
-                    "update for image url"
+            Plant purpleCabbage = new Plant(
+                    "Purple Cabbage",
+                    "Brassica oleracea Capitata",
+                    "Like other cabbage, it prefers cool weather and forms round, dense heads on top of short stalks.",
+                    24,
+                    12,
+                    "full sun",
+                    "https://i.ibb.co/Zmjs6yj/purplecabbage.jpg"
+            );
+
+            Plant carrot = new Plant(
+                    "Carrot",
+                    "Daucus carota",
+                    "The carrot is a root vegetable. Spread 5cm apart.",
+                    17,
+                    21,
+                    "full sun",
+                    "https://i.ibb.co/Mgskv1D/carrot.jpg"
+            );
+
+            Plant broccoli = new Plant(
+                    "Broccoli",
+                    "Brassica oleracea",
+                    "Broccoli has large flower heads known as \"crowns\" that are green to blue-green in color, grouped tightly together atop a thick stem, and surrounded by leaves. Broccoli resembles cauliflower, a different cultivar in its species. It thrives in cool weather.",
+                    17,
+                    16,
+                    "full sun",
+                    "https://i.ibb.co/G3fmfdX/broccoli.jpg"
             );
 
             repository.saveAll(
-                    List.of(tomato, lettuce)
+                    List.of(tomato, purpleCabbage, carrot, broccoli)
             );
         };
     }
