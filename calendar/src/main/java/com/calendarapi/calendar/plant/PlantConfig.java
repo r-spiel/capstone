@@ -53,8 +53,38 @@ public class PlantConfig {
                     "https://i.ibb.co/G3fmfdX/broccoli.jpg"
             );
 
+            Plant eggplant = new Plant(
+                    "Eggplant",
+                    "Solanum melongena",
+                    "Eggplants commonly are egg-shaped with glossy black skin, but can come in a variety of other shapes and colors. They can be white, yellow, and pale to deep purple. Some are as small as goose eggs. ",
+                    17,
+                    12,
+                    "full sun",
+                    "https://i.ibb.co/6D3phzG/eggplant.jpg"
+            );
+
+            Plant cucumber = new Plant(
+                    "Cucumber",
+                    "Cucumis sativus",
+                    "Cucumbers grow best in full sun but can do fine with 5 hours of sunlight per day.",
+                    19,
+                    12,
+                    "full sun",
+                    "https://i.ibb.co/CWzxjNs/cucumber.jpg"
+            );
+
+            Plant garlic = new Plant(
+                    "Garlic",
+                    "Allium sativum",
+                    "There are many different varieties of garlic.",
+                    32,
+                    32,
+                    "full sun",
+                    "https://i.ibb.co/1vHjSNS/garlic.jpg"
+            );
+
             repository.saveAll(
-                    List.of(tomato, purpleCabbage, carrot, broccoli)
+                    List.of(tomato, purpleCabbage, carrot, broccoli, eggplant, cucumber, garlic)
             );
         };
     }
