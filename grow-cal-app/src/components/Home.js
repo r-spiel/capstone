@@ -7,24 +7,53 @@ import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
 import { Link } from 'react-router-dom'
 import SplashPage from './SplashPage';
-import moment from 'moment';
+import PlantDetails from './PlantDetails';
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
   const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
-  const [selectedPlants, setSelectedPlants] = useState([])
+  const [selectedPlantId, setSelectedPlantId] = useState(null)
+  // const [selectedPlantIds, setSelectedPlantIds] = useState([]) // array of indexes
   const [newPlantError, setNewPlantError] = useState("")
   
-  // const addPlantToSelected = (plantObj) => {
-  //   const updatedSelectedPLantsList = [...selectedPlants, plantObj]
-  //   setSelectedPlants(updatedSelectedPLantsList)
+  const selectAPlant = (plantId) => {
+    const found = plantList.find( plant => 
+      plant.id === plantId
+    )
+
+    if (found) {
+      setSelectedPlantId(plantId)
+    }
+  }
+
+  const unselectAPlant = (plantId) => {
+    if (selectedPlantId === plantId) {
+      setSelectedPlantId(null)
+    }
+
+  }
+
+  // const showPlantDetails = (plantId) => {
+  //   plantList.find(plant => {
+  //     if (plant.id === plantId) {
+  //       return (
+  //         <PlantDetails 
+  //           plantObj={plant} 
+  //           key={plant.id + 1} 
+
+  //           // newEventCallback={newEventCallback}
+  //           editPlantCallback={editPlantCallback}
+  //           refreshPage={refreshPage}
+  //           deletePlant={deletePlant}
+  //           url={url}
+  //         />
+  //       )
+  //     }
+  //   })
   // }
 
-  // const clearSelectedPlantList = () => {
-  //   setSelectedPlants([])
-  // }
 
   const makeEventList = (listOfPlants) => {
     let listOfEvents = []
@@ -39,23 +68,9 @@ const Home = ({url}) => {
           })
         }
         )
-    // listOfPlants.forEach(plant => {
-    //   if (plant.eventList > 0) {
-    //     plant.eventList.forEach(singleEvent => {
-  
-    //       listOfEvents.push({
-    //         start: singleEvent.startTime,
-    //         end: singleEvent.endTime,
-    //         title: singleEvent.title,
-    //         allDay: false
-    //       })
-    //     }
-    //     )
-    //   }
     })
   
     setEventList(listOfEvents)
-    // console.log(listOfEvents)
   }
 
   const changeShowNewPlantForm = (boolean) => {
@@ -153,7 +168,21 @@ const Home = ({url}) => {
     });
   }
 
-  console.log(eventList)
+  const showPlantDetails = plantList.filter((plant) => plant.id === selectedPlantId).map((selectedPlant) => {
+    return (
+      <PlantDetails 
+        plantObj={selectedPlant} 
+        key={selectedPlant.id} 
+
+        newEventCallback={addEventToPlant}
+        editPlantCallback={editPlantCallback}
+        refreshPage={refreshPage}
+        deletePlant={deletePlant}
+        url={url}
+      />
+    )
+  })
+
 
   if ( !localStorage.get('user') ) {
     return (
@@ -175,8 +204,10 @@ const Home = ({url}) => {
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
-        { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        { plantList.length > 0 ? <Plants plants={plantList} selectedPlantId={selectedPlantId} selectAPlant={selectAPlant} unselectAPlant={unselectAPlant} /> : "Please add plants to your list!"}
         {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
+      
+        { selectedPlantId ? showPlantDetails : null }
       </div>
     )
   }
