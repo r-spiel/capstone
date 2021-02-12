@@ -44,3 +44,7 @@ html, body {
 .selected {
   border: thick #39FF14;
 }
+
+.bold {
+  font-weight: bolder;
+}

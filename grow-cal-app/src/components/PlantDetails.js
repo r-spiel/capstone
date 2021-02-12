@@ -8,9 +8,6 @@ import NewEventForm from './NewEventForm';
 const PlantDetails = (props) => {
   const [showEditPlantForm, setShowEditPlantForm] = useState(false)
   const [showNewEventForm, setShowNewEventForm] = useState(false)
-  const [eventList, setEventList] = useState(
-    props.plantObj.eventList
-  )
 
   const plantObj = props.plantObj
 
@@ -36,7 +33,7 @@ const PlantDetails = (props) => {
             </svg>
           </button>
 
-          <button type="button" className="btn text-danger" onClick={ deletePlantOnClick } >
+          <button type="button" className="btn text-danger ml-1" onClick={ deletePlantOnClick } >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -45,12 +42,12 @@ const PlantDetails = (props) => {
         </span>
         
       </span>
-      { plantObj.scientificName ? <p>Scientific Name: {plantObj.scientificName}</p>: null }
+      { plantObj.scientificName ? <p><span className="bold">Scientific Name:</span> {plantObj.scientificName}</p>: null }
       {/* <p>Scientific Name: {plantObj.scientificName}</p> */}
-      { plantObj.notes ? <p>Notes: {plantObj.notes}</p> : null }
-      { plantObj.sunRequirement ? <p>Sun Requirment: {plantObj.sunRequirement}</p> : null }
-      { plantObj.lifespan ? <p>Lifespan: {plantObj.lifespan} weeks </p> : null }
-      { plantObj.harvest ? <p>Median Harvest Time: {plantObj.harvest} weeks after planting </p> : null }
+      { plantObj.notes ? <p><span className="bold">Notes:</span> {plantObj.notes}</p> : null }
+      { plantObj.sunRequirement ? <p><span className="bold">Sun Requirement:</span> {plantObj.sunRequirement}</p> : null }
+      { plantObj.lifespan ? <p><span className="bold">Lifespan:</span>Lifespan: {plantObj.lifespan} weeks </p> : null }
+      { plantObj.harvest ? <p><span className="bold">Median Harvest Time:</span> {plantObj.harvest} weeks after planting </p> : null }
 
       { showEditPlantForm ? <UpdatePlantForm plantObj={plantObj} editRequestCallback={props.editPlantCallback} /> : null}
       
@@ -61,7 +58,7 @@ const PlantDetails = (props) => {
         </span>
       </div>
   
-      { eventList.length > 0 ? <Events eventList={eventList} /> : `No events for ${plantObj.name}` }
+      { plantObj.eventList.length > 0 ? <Events eventList={plantObj.eventList} /> : `No events for ${plantObj.name}` }
       { showNewEventForm ? <NewEventForm newEventCallback={props.newEventCallback} plantName={props.plantObj.name} plantId={id} /> : null }
       </div>
       

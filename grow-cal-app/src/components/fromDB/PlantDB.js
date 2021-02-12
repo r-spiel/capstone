@@ -14,13 +14,25 @@ const PlantDB = ({plantObj, addPlantCallback}) => {
 
   return (
     <div className="card" key={plantObj.id}>
+
+    <div className="card-body">
       <span>
-        {plantObj.name} ({plantObj.scientificName}) 
-        <button type="button" onClick={ () => setShowAddPlantDetails(!showAddPlantDetails) }>
-          add to my garden
-        </button>
-        <p>Notes: {plantObj.notes}</p>
-        <p>{plantObj.sunRequirement}, Lifespan: {plantObj.lifespan}, Weeks to harvest from planting: {plantObj.harvest}</p>
+      <img src={plantObj.imageUrl} alt={plantObj.name} className="plant-details-icon"/>
+
+      <h4 className="title-inline ml-3">{plantObj.name}</h4>
+      <button className="float-right" type="button" onClick={ () => setShowAddPlantDetails(!showAddPlantDetails) }>
+          add to my plant list
+      </button>
+        
+      </span>
+      { plantObj.scientificName ? <p><span className="bold">Scientific Name:</span> {plantObj.scientificName}</p>: null }
+      {/* <p>Scientific Name: {plantObj.scientificName}</p> */}
+      { plantObj.notes ? <p><span className="bold">Notes:</span> {plantObj.notes}</p> : null }
+      { plantObj.sunRequirement ? <p><span className="bold">Sun Requirement:</span> {plantObj.sunRequirement}</p> : null }
+      { plantObj.lifespan ? <p><span className="bold">Lifespan:</span>Lifespan: {plantObj.lifespan} weeks </p> : null }
+      { plantObj.harvest ? <p><span className="bold">Median Harvest Time:</span> {plantObj.harvest} weeks after planting </p> : null }
+
+
         { showAddPlantDetails ? 
           <AddNewPlantFromDBForm 
             plantObj={plantObj} 
@@ -28,11 +40,8 @@ const PlantDB = ({plantObj, addPlantCallback}) => {
             hidePlantForm={hideAddPlantForm}
           /> 
           : null 
-        }
-      </span>
-
-
-      
+        } 
+      </div>
     </div>
   )
 }

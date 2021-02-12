@@ -4,7 +4,7 @@ import PlantIcon from './PlantIcon'
 import PlantDetails from './PlantDetails'
 import localStorage from 'local-storage';
 
-const Plants = ({plants, selectAPlant, unSelectAPlant, selectedPlantId}) => {
+const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
 
 
   const plantIconComponents = plants.map((plant) => {
@@ -17,7 +17,7 @@ const Plants = ({plants, selectAPlant, unSelectAPlant, selectedPlantId}) => {
 
         selectedPlantId={selectedPlantId}
         selectAPlant={selectAPlant}
-        unSelectAPlant={unSelectAPlant}
+        unselectAPlant={unselectAPlant}
       />
     )
   })
