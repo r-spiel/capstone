@@ -7,24 +7,31 @@ import AddNewPlantForm from "./AddNewPlantForm";
 import localStorage from 'local-storage';
 import { Link } from 'react-router-dom'
 import SplashPage from './SplashPage';
-import moment from 'moment';
+import PlantDetails from './PlantDetails';
 
 const Home = ({url}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
   const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
-  const [selectedPlants, setSelectedPlants] = useState([])
+  const [selectedPlantId, setSelectedPlantId] = useState(null)
   const [newPlantError, setNewPlantError] = useState("")
   
-  // const addPlantToSelected = (plantObj) => {
-  //   const updatedSelectedPLantsList = [...selectedPlants, plantObj]
-  //   setSelectedPlants(updatedSelectedPLantsList)
-  // }
+  const selectAPlant = (plantId) => {
+    const found = plantList.find( plant => 
+      plant.id === plantId
+    )
 
-  // const clearSelectedPlantList = () => {
-  //   setSelectedPlants([])
-  // }
+    if (found) {
+      setSelectedPlantId(plantId)
+    }
+  }
+
+  const unselectAPlant = (plantId) => {
+    if (selectedPlantId === plantId) {
+      setSelectedPlantId(null)
+    }
+  }
 
   const makeEventList = (listOfPlants) => {
     let listOfEvents = []
@@ -39,23 +46,9 @@ const Home = ({url}) => {
           })
         }
         )
-    // listOfPlants.forEach(plant => {
-    //   if (plant.eventList > 0) {
-    //     plant.eventList.forEach(singleEvent => {
-  
-    //       listOfEvents.push({
-    //         start: singleEvent.startTime,
-    //         end: singleEvent.endTime,
-    //         title: singleEvent.title,
-    //         allDay: false
-    //       })
-    //     }
-    //     )
-    //   }
     })
   
     setEventList(listOfEvents)
-    // console.log(listOfEvents)
   }
 
   const changeShowNewPlantForm = (boolean) => {
@@ -75,7 +68,6 @@ const Home = ({url}) => {
     axios.get(`${url}/users/${localStorage.get('id')}/plants`)
     .then((response) => {
       const usersPlantList = response.data;
-      console.log(usersPlantList)
       setPlantList(usersPlantList);
       makeEventList(usersPlantList)
     })
@@ -106,8 +98,6 @@ const Home = ({url}) => {
   const editPlantCallback = (editForm, id) => {
     axios.put(`${url}/userPlants/${id}`, editForm)
     .then((response) => {
-      console.log(editForm)
-      // redirect to home
       getPlantsList()
 
     })
@@ -121,12 +111,8 @@ const Home = ({url}) => {
   const deletePlant = (plantId) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
-      // const userData = response.data;
-      // refreshPage()
-
       getPlantsList()
       console.log(response)
-      console.log(response.data)
 
     })
     .catch((error) => {
@@ -143,6 +129,18 @@ const Home = ({url}) => {
     .then((response) => {
 
       getPlantsList();
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
+
+  const deleteEventFromPlant = (plantId, eventId) => {
+    axios.delete(`${url}/userPlants/${plantId}/events/${eventId}`)
+    .then((response) => {
+
+      getPlantsList();
       // refreshPage()
       console.log(response)
     })
@@ -153,7 +151,22 @@ const Home = ({url}) => {
     });
   }
 
-  console.log(eventList)
+  const showPlantDetails = plantList.filter((plant) => plant.id === selectedPlantId).map((selectedPlant) => {
+    return (
+      <PlantDetails 
+        plantObj={selectedPlant} 
+        key={selectedPlant.id} 
+
+        newEventCallback={addEventToPlant}
+        deleteEventCallback={deleteEventFromPlant}
+        editPlantCallback={editPlantCallback}
+        refreshPage={refreshPage}
+        deletePlant={deletePlant}
+        url={url}
+      />
+    )
+  })
+
 
   if ( !localStorage.get('user') ) {
     return (
@@ -175,8 +188,10 @@ const Home = ({url}) => {
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
   
-        { plantList.length > 0 ? <Plants newEventCallback={addEventToPlant} editPlantCallback={editPlantCallback} refreshPage={refreshPage} plants={plantList} deletePlant={deletePlant} url={url} /> : "Please add plants to your list!"}
+        { plantList.length > 0 ? <Plants plants={plantList} selectedPlantId={selectedPlantId} selectAPlant={selectAPlant} unselectAPlant={unselectAPlant} /> : "Please add plants to your list!"}
         {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
+      
+        { selectedPlantId ? showPlantDetails : null }
       </div>
     )
   }

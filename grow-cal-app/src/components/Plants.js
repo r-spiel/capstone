@@ -1,81 +1,85 @@
-import React, { useState} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import PlantIcon from './PlantIcon'
-import PlantDetails from './PlantDetails'
-import localStorage from 'local-storage';
 
-const Plants = ({plants, deletePlant, url, refreshPage, editPlantCallback, newEventCallback }) => {
-  const [selectedPlants, setSelectedPlants] = useState([])
-  const [selectionsCleared, setSelectionsCleared] = useState(false)
-  // pass in the list of plants to plant to check for edit??? That the edited name is not the same as any currently there already?  
 
-  const addPlantToSelected = (plantObj) => {
-    const updatedSelectedPLantsList = [...selectedPlants, plantObj]
-    setSelectedPlants(updatedSelectedPLantsList)
-    console.log(selectedPlants)
-  }
-
-  const clearSelectedPlantList = () => {
-    setSelectedPlants([])
-    setSelectionsCleared(true)
-  }
-
-  const resetSelectionsCleared = () => {
-    setSelectionsCleared(false)
-  }
+const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
   
-  const deleteFromSelectedList = (plantId) => {
-    let updatedSelectedPLantsList = [...selectedPlants]
-
-    for (let i = 0; i < updatedSelectedPLantsList.length; i++) {
-      if (updatedSelectedPLantsList[i].id === plantId) {
-        updatedSelectedPLantsList.splice(i, 1)
-      }
-
-    }
-    setSelectedPlants(updatedSelectedPLantsList)
-  }
 
   const plantIconComponents = plants.map((plant) => {
     return (
-      <PlantIcon
-        key={plant.id} 
-        plantObj={plant} 
+      <div className="col-xs-3">
+        <PlantIcon
+          key={plant.id} 
+          id={plant.id}
+          name={plant.name}
+          imageUrl={plant.imageUrl}
 
-        resetSelectionsCleared={resetSelectionsCleared}
-        areSelectionsCleared={selectionsCleared} //will be true or false
-        addPlantToSelected={addPlantToSelected}
-        unselectFromList={deleteFromSelectedList}
-      />
+          selectedPlantId={selectedPlantId}
+          selectAPlant={selectAPlant}
+          unselectAPlant={unselectAPlant}
+        />
+      </div>
     )
   })
 
-  const plantDetailsComponents = selectedPlants.map((plant) => {
-      return (
-        <PlantDetails 
-          plantObj={plant} 
-          key={plant.id + 1} 
+  const iconCarouselBuilder = () => {
+    let carouselMap = []
+    let i = 0
+    while (i < plants.length) {
+      if (i + 3 < plants.length) {
+        carouselMap.push(plantIconComponents.slice(i, i + 4))
+      } else { 
+        carouselMap.push(plantIconComponents.slice(i, plants.length))
+      }
+      
+      i += 4
+    }
+    return carouselMap
+  }
 
-          newEventCallback={newEventCallback}
-          editPlantCallback={editPlantCallback}
-          refreshPage={refreshPage}
-          deletePlant={deletePlant}
-          plantList={plants}
-          url={url}
-        />
-      )
+  const carouselGroups = iconCarouselBuilder()
+
+  const carouselIndicators = carouselGroups.map(function(group, index) {
+    return (
+      <li key={index} data-target="#myCarousel" data-slide-to={index} className={index===0 ? "active" : "" } ></li>
+    )
   })
 
-  console.log(selectedPlants)
+  const plantInnerCarousel = carouselGroups.map(function(group, index) {
+    return (
+      <div key={index} className={index === 0 ? "carousel-item active": "carousel-item"}>
+        <div className="row justify-content-center">
+          {group}
+        </div>
+
+      </div>
+
+    )
+  })
+
 
   return (
     <div>
-      <button onClick={clearSelectedPlantList} >Clear Selected Plants</button>
-      <p>Select a plant to view it's details and see more options:</p>
-      <span className="row m-5">
-        {plantIconComponents}
-      </span>
-      { selectedPlants.length > 0 ? plantDetailsComponents : null }
+      <p className="mt-3">You have <span className="plant-qty p-2">{plants.length}</span> plants in your list.</p>
+      <p>Select a plant from the carousel to view it's details and see more options:</p>
+      <div className="col-xs-12 pb-3">
+        <div id="carouselExampleControls" className="carousel slide z-depth-1-half" data-ride="carousel" data-interval="false">
+          <ol className="carousel-indicators">
+            {carouselIndicators}
+          </ol>
+          <div className="carousel-inner">
+            {plantInnerCarousel}
+          </div>
+          <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="sr-only">Previous</span>
+          </a>
+          <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
     </div>
   )
 }

@@ -5,26 +5,20 @@ import Event from './Event'
 import localStorage from 'local-storage';
 import moment from 'moment'
 
-const Events = ({eventList}) => {
+const Events = ({plantId, eventList, deleteEventCallback}) => {
+
+  // const deleteEventHandler = (eventId) => {
+  //   deleteEventCallback(plantId, eventId)
+  // }
 
   const eventMap = eventList.map((singleEvent) => {
-
-
     return (
-      <div className="card" key={singleEvent.id}>
-        {console.log(singleEvent.startTime)}
-        {console.log(typeof singleEvent.startTime)}
-        {console.log(typeof singleEvent.startTime)}
-        <p>Event title: {singleEvent.title}</p>
-        <p>Start Date/Time: {moment(singleEvent.startTime).format('MMMM Do YYYY, h:mm a')}</p>
-        {console.log(moment(singleEvent.startTime).format('MMMM Do YYYY, h:mm:ss a'))}
-        <p>End Date/Time: {moment(singleEvent.endTime).format('MMMM Do YYYY, h:mm a')}</p>
-      </div>
+      <Event key={singleEvent.id} singleEvent={singleEvent} plantId={plantId} deleteEventCallback={deleteEventCallback} />
     )
   })
 
   return (
-    <div>
+    <div className="row p-2 justify-content-center">
       {eventMap}
     </div>
   )

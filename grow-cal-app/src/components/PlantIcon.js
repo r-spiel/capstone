@@ -5,30 +5,38 @@ import UpdatePlantForm from './UpdatePlantForm'
 import Events from './Events'
 import NewEventForm from './NewEventForm';
 
-const PlantIcon = ({plantObj, addPlantToSelected, unselectFromList, areSelectionsCleared}) => {
-  const [isSelected, setIsSelected] = useState(false)
+const PlantIcon = ({id, name, imageUrl,  selectedPlantId, selectAPlant, unselectAPlant }) => {
+  // const [isSelected, setIsSelected] = useState(false)
 
-  const selectCard = () => {
-    setIsSelected(!isSelected)
+  // const selectCard = () => {
+  //   setIsSelected(!isSelected)
+  // }
+
+  // useEffect(() => {
+  //   if (isSelected) {
+  //     addPlantToSelected(plantObj)
+  //   } else {
+  //     // delete from selected list callback
+  //     unselectFromList(plantObj.id)
+  //   }
+  // }, [isSelected]);
+
+  const showSelected = () => {
+    if (id === selectedPlantId) {
+      unselectAPlant(id)
+    } else {
+      selectAPlant(id)
+    }
   }
 
-  useEffect(() => {
-    if (isSelected) {
-      addPlantToSelected(plantObj)
-    } else {
-      // delete from selected list callback
-      unselectFromList(plantObj.id)
-    }
-  }, [isSelected]);
-
   return (
-    <div className={ isSelected ? "card plant-icon-card m-1 border border-danger" : "card plant-icon-card m-1" } onClick={selectCard}>
+    <div className={ id === selectedPlantId ? "d-block card plant-icon-card m-1 border border-danger shadow" : "d-block card plant-icon-card m-1 shadow" } onClick={showSelected}>
       {/* // <div className="card plant-icon-card m-1 border border-danger" onClick={selectCard}> */}
-      <img src={plantObj.imageUrl} alt={plantObj.name} className="card-img-top"/>
+      <img src={imageUrl} alt={name} className="card-img-top"/>
 
       <div className="card-body">
       
-          <h6 className="plant-icon-title">{plantObj.name}</h6>
+          <h6 className="plant-icon-title">{name}</h6>
 
       </div>
     </div>
