@@ -15,7 +15,6 @@ const Home = ({url}) => {
   const [eventList, setEventList] = useState([])
   const [showNewPlantForm, setShowNewPlantForm] = useState(false)
   const [selectedPlantId, setSelectedPlantId] = useState(null)
-  // const [selectedPlantIds, setSelectedPlantIds] = useState([]) // array of indexes
   const [newPlantError, setNewPlantError] = useState("")
   
   const selectAPlant = (plantId) => {
@@ -32,28 +31,7 @@ const Home = ({url}) => {
     if (selectedPlantId === plantId) {
       setSelectedPlantId(null)
     }
-
   }
-
-  // const showPlantDetails = (plantId) => {
-  //   plantList.find(plant => {
-  //     if (plant.id === plantId) {
-  //       return (
-  //         <PlantDetails 
-  //           plantObj={plant} 
-  //           key={plant.id + 1} 
-
-  //           // newEventCallback={newEventCallback}
-  //           editPlantCallback={editPlantCallback}
-  //           refreshPage={refreshPage}
-  //           deletePlant={deletePlant}
-  //           url={url}
-  //         />
-  //       )
-  //     }
-  //   })
-  // }
-
 
   const makeEventList = (listOfPlants) => {
     let listOfEvents = []
@@ -90,7 +68,6 @@ const Home = ({url}) => {
     axios.get(`${url}/users/${localStorage.get('id')}/plants`)
     .then((response) => {
       const usersPlantList = response.data;
-      console.log(usersPlantList)
       setPlantList(usersPlantList);
       makeEventList(usersPlantList)
     })
@@ -121,8 +98,6 @@ const Home = ({url}) => {
   const editPlantCallback = (editForm, id) => {
     axios.put(`${url}/userPlants/${id}`, editForm)
     .then((response) => {
-      console.log(editForm)
-      // redirect to home
       getPlantsList()
 
     })
@@ -136,12 +111,8 @@ const Home = ({url}) => {
   const deletePlant = (plantId) => {
     axios.delete(`${url}/userPlants/${plantId}`)
     .then((response) => {
-      // const userData = response.data;
-      // refreshPage()
-
       getPlantsList()
       console.log(response)
-      console.log(response.data)
 
     })
     .catch((error) => {
@@ -155,6 +126,18 @@ const Home = ({url}) => {
   // ADD NEW EVENT: 
   const addEventToPlant = (eventObj, plantId) => {
     axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
+    .then((response) => {
+
+      getPlantsList();
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
+
+  const deleteEventFromPlant = (plantId, eventId) => {
+    axios.delete(`${url}/userPlants/${plantId}/events/${eventId}`)
     .then((response) => {
 
       getPlantsList();
@@ -175,6 +158,7 @@ const Home = ({url}) => {
         key={selectedPlant.id} 
 
         newEventCallback={addEventToPlant}
+        deleteEventCallback={deleteEventFromPlant}
         editPlantCallback={editPlantCallback}
         refreshPage={refreshPage}
         deletePlant={deletePlant}

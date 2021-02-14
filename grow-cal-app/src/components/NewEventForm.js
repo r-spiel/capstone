@@ -56,7 +56,6 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
         endTimeHM[0] = parseInt(endTimeHM[0])
       }
 
-      console.log(startTimeHM)
       const finalStartDate = dateStart
       finalStartDate.setHours(startTimeHM[0], startTimeHM[1])
 
@@ -110,7 +109,7 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
           </select>
         </div>
         
-        <button type="submit" className="btn">Add Event</button>
+        <button type="submit" className="btn bg-white">Add Event</button>
       </form>
     </div>
   )

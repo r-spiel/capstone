@@ -48,3 +48,28 @@ html, body {
 .bold {
   font-weight: bolder;
 }
+
+.plant-qty {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.carousel-indicators > li {
+  border-radius: 50%;
+}
+
+#myCarousel-indicators > li {
+  border-radius: 50%;
+}
+
+.header-row {
+  background-color: lightgray;
+}
+
+.event-container {
+  background-color: #EDEEF0;
+}
+
+.event-card {
+  width: 430px;
+}

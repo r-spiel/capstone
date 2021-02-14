@@ -1,8 +1,6 @@
-import React, { useState} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import PlantIcon from './PlantIcon'
-import PlantDetails from './PlantDetails'
-import localStorage from 'local-storage';
+
 
 const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
   
@@ -41,9 +39,15 @@ const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
 
   const carouselGroups = iconCarouselBuilder()
 
+  const carouselIndicators = carouselGroups.map(function(group, index) {
+    return (
+      <li key={index} data-target="#myCarousel" data-slide-to={index} className={index===0 ? "active" : "" } ></li>
+    )
+  })
+
   const plantInnerCarousel = carouselGroups.map(function(group, index) {
     return (
-      <div className={index === 0 ? "carousel-item active": "carousel-item"}>
+      <div key={index} className={index === 0 ? "carousel-item active": "carousel-item"}>
         <div className="row justify-content-center">
           {group}
         </div>
@@ -56,10 +60,13 @@ const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
 
   return (
     <div>
-      <p>You have {plants.length} plants in your list.</p>
+      <p className="mt-3">You have <span className="plant-qty p-2">{plants.length}</span> plants in your list.</p>
       <p>Select a plant from the carousel to view it's details and see more options:</p>
-      <div className="col-xs-12">
-        <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+      <div className="col-xs-12 pb-3">
+        <div id="carouselExampleControls" className="carousel slide z-depth-1-half" data-ride="carousel" data-interval="false">
+          <ol className="carousel-indicators">
+            {carouselIndicators}
+          </ol>
           <div className="carousel-inner">
             {plantInnerCarousel}
           </div>

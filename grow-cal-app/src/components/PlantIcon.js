@@ -30,7 +30,7 @@ const PlantIcon = ({id, name, imageUrl,  selectedPlantId, selectAPlant, unselect
   }
 
   return (
-    <div className={ id === selectedPlantId ? "d-block card plant-icon-card m-1 border border-danger" : "d-block card plant-icon-card m-1" } onClick={showSelected}>
+    <div className={ id === selectedPlantId ? "d-block card plant-icon-card m-1 border border-danger shadow" : "d-block card plant-icon-card m-1 shadow" } onClick={showSelected}>
       {/* // <div className="card plant-icon-card m-1 border border-danger" onClick={selectCard}> */}
       <img src={imageUrl} alt={name} className="card-img-top"/>
 

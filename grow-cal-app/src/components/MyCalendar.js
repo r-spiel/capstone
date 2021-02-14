@@ -11,7 +11,7 @@ import listPlugin from '@fullcalendar/list'
 const MyCalendar = ({eventList}) => {
 
   return (
-    <div id='calendar' className="calendar">
+    <div id='calendar' className="calendar shadow-lg">
       <FullCalendar
         initialView="dayGridMonth"
         headerToolbar={{
