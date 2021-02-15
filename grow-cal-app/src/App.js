@@ -66,7 +66,7 @@ function App() {
       
         <header ref={topRef}>
           <nav className="navbar navbar-light">
-          <a href="/" className="title navbar-brand grow-title">Grow-Cal App</a>
+          <a href="/capstone" className="title navbar-brand grow-title">Grow-Cal App</a>
             <ul className="navbar-nav">
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
                 <button onClick={ onLoginLogoutClick } className="nav-item" >{ buttonLoginText }</button></li>
