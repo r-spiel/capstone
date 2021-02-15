@@ -20,7 +20,7 @@ const PlantDetails = (props) => {
   }
 
   return (
-    <div className="card">
+    <div className="card mb-3">
 
     <div className="card-body">
       <span>
