@@ -7,6 +7,11 @@ html, body {
   font-size: 60px;
   color: #EDEEF0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  
+}
+
+.grow-title:hover {
+  color: #EDEEF0;
 }
 
 .login-card {
@@ -72,4 +77,12 @@ html, body {
 
 .event-card {
   width: 430px;
+}
+
+.cal-icon {
+  width: 40px;
+}
+
+.source-title {
+  margin-top: 50px;
 }
