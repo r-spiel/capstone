@@ -1,5 +1,3 @@
-import moment from 'moment'
-import localStorage from 'local-storage';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
