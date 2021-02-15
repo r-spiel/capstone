@@ -79,7 +79,7 @@ function App() {
         <main className="container">
           <Switch>
             <Route exact path="/capstone" ><Home url={API_URL_BASE} /></Route>
-            <Route path='capstone/addFromDatabase'><AddFromDatabase scrollToTopCallback={scrollToTop} url={API_URL_BASE} /></Route>
+            <Route path='/capstone/addFromDatabase'><AddFromDatabase scrollToTopCallback={scrollToTop} url={API_URL_BASE} /></Route>
           </Switch>
           
         </main>
