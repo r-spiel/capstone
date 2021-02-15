@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+  background-color: #BCD9D7;
+}
+
+.title {
+  font-size: 60px;
+  color: #EDEEF0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  
+}
+
+.grow-title:hover {
+  color: #EDEEF0;
+}
+
+.login-card {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+}
+
+.calendar {
+  background-color: white;
+}
+
+.title-inline {
+  display: inline;
+}
+
+.plant-icon-card {
+  width: 125px;
+  background-color: #39595C;
+  color: white;
+}
+
+.plant-icon-title {
+  padding: 0%;
+  margin: 0%;
+  font-size: smaller;
+  text-align: center;
+}
+
+.plant-details-icon {
+  width: 75px;
+  display: inline;
+}
+
+.selected {
+  border: thick #39FF14;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.plant-qty {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.carousel-indicators > li {
+  border-radius: 50%;
+}
+
+#myCarousel-indicators > li {
+  border-radius: 50%;
+}
+
+.header-row {
+  background-color: lightgray;
+}
+
+.event-container {
+  background-color: #EDEEF0;
+}
+
+.event-card {
+  width: 430px;
+}
+
+.cal-icon {
+  width: 40px;
+}
+
+.source-title {
+  margin-top: 50px;
+}
