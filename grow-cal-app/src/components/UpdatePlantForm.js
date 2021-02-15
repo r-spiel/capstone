@@ -39,7 +39,7 @@ const FORM_FIELDS = [
   }
 ]
 
-const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
+const UpdatePlantForm = ({plantObj, editRequestCallback, hideAddPlantFormCallback}) => {
   const defaultFormFields = {
     "name": plantObj.name,
     "scientificName": plantObj.scientificName,
@@ -71,10 +71,9 @@ const UpdatePlantForm = ({plantObj, editRequestCallback}) => {
 
     if (formFields.name !== null ) { //and check that the name isn't already in the list
       editRequestCallback(formFields, plantObj.id)
-      
-      // refresh the page
 
       setFormFields(defaultFormFields)
+      hideAddPlantFormCallback()
     } else {
       setErrorMessage("UpdatePlantForm.js error")
       console.log("UpdatePlantForm.js error")

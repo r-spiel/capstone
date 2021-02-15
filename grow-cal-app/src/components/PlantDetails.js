@@ -11,12 +11,16 @@ const PlantDetails = (props) => {
 
   const id = props.plantObj.id
 
+  const hideAddPlantForm = () => {
+    setShowEditPlantForm(false)
+  }
+
   const deletePlantOnClick = () => {
     props.deletePlant(id)
   }
 
   return (
-    <div className="card">
+    <div className="card mb-3">
 
     <div className="card-body">
       <span>
@@ -47,7 +51,7 @@ const PlantDetails = (props) => {
       { plantObj.lifespan ? <p><span className="bold">Lifespan:</span>Lifespan: {plantObj.lifespan} weeks </p> : null }
       { plantObj.harvest ? <p><span className="bold">Median Harvest Time:</span> {plantObj.harvest} weeks after planting </p> : null }
 
-      { showEditPlantForm ? <UpdatePlantForm plantObj={plantObj} editRequestCallback={props.editPlantCallback} /> : null}
+      { showEditPlantForm ? <UpdatePlantForm hideAddPlantFormCallback={hideAddPlantForm} plantObj={plantObj} editRequestCallback={props.editPlantCallback} /> : null}
       
       <div className="event-container pt-2">
         <span >

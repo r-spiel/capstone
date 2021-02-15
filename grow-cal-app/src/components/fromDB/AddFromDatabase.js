@@ -3,7 +3,7 @@ import localStorage from 'local-storage';
 import axios from 'axios';
 import PlantDB from './PlantDB';
 
-const AddFromDatabase = ({url}) => {
+const AddFromDatabase = ({url, scrollToTopCallback}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
 
@@ -34,7 +34,6 @@ const AddFromDatabase = ({url}) => {
       // seterrorMessage(error.response);
       setErrorMessage("Error, plant could not be added.  Make sure to use a different name from any plant that already exists in your garden.")
       console.log(error.response);
-      // axios error.response, sep from error.message
     });
   }
 
@@ -42,14 +41,14 @@ const AddFromDatabase = ({url}) => {
   const dbPlants = plantList.map((plant) => {
     return (
       <div className="card" key={plant.id}>
-        <PlantDB plantObj={plant} addPlantCallback={addPlantToAPI} />
+        <PlantDB scrollToTopCallback={scrollToTopCallback} plantObj={plant} addPlantCallback={addPlantToAPI} />
       </div>
     )
   })
 
   return (
     <div>
-      <p>Plants from the Database:</p>
+      <h1>Plants from the Database:</h1>
       <div className="text-danger" >{ errorMessage }</div>
       { dbPlants }
     </div>

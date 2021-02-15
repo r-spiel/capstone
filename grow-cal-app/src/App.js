@@ -1,6 +1,6 @@
 import './App.css';
 // import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import localStorage from 'local-storage';
 import {
   BrowserRouter as Router,
@@ -30,6 +30,12 @@ function App() {
 
   const [buttonLoginText, setButtonLoginText] = useState(buttonText)
 
+  const topRef = useRef()
+
+  const scrollToTop = () => {
+    topRef.current.scrollIntoView({ behavior: 'smooth'})
+  }
+
   const saveCurrentUser = (user) => {
     localStorage.set('user', user.userName)
     localStorage.set('id', user.id)
@@ -57,11 +63,10 @@ function App() {
 
   return (
     <Router>
-   
-
-        <header>
+      
+        <header ref={topRef}>
           <nav className="navbar navbar-light">
-          <a href="/" className="title navbar-brand">Grow-Cal App</a>
+          <a href="/" className="title navbar-brand grow-title">Grow-Cal App</a>
             <ul className="navbar-nav">
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
                 <button onClick={ onLoginLogoutClick } className="nav-item" >{ buttonLoginText }</button></li>
@@ -74,12 +79,14 @@ function App() {
         <main className="container">
           <Switch>
             <Route exact path="/" ><Home url={API_URL_BASE} /></Route>
-            <Route path='/addFromDatabase'><AddFromDatabase url={API_URL_BASE} /></Route>
+            <Route path='/addFromDatabase'><AddFromDatabase scrollToTopCallback={scrollToTop} url={API_URL_BASE} /></Route>
           </Switch>
           
         </main>
 
-        <footer><p>Footer</p></footer>
+        <footer>
+
+        </footer>
 
 
 

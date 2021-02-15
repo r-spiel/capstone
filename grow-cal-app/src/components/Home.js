@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import MyCalendar from './MyCalendar';
@@ -81,16 +81,13 @@ const Home = ({url}) => {
   const addPlantToAPI = (plantObj) => {
     axios.post(`${url}/users/${localStorage.get('id')}/plants`, plantObj)
     .then((response) => {
-      const userData = response.data;
       getPlantsList()
-      console.log(response)
-      console.log(userData)
+      // const userData = response.data;
+      // console.log(userData)
 
     })
     .catch((error) => {
-      // seterrorMessage(error.response);
       console.log(error.response);
-      // axios error.response, sep from error.message
     });
   }
 
@@ -102,9 +99,7 @@ const Home = ({url}) => {
 
     })
     .catch((error) => {
-      // seterrorMessage(error.response);
       console.log(error.response);
-      // axios error.response, sep from error.message
     });
   }
 
@@ -116,9 +111,7 @@ const Home = ({url}) => {
 
     })
     .catch((error) => {
-      // seterrorMessage(error.response);
       console.log(error.response);
-      // axios error.response, sep from error.message
     });
   }
 
@@ -167,6 +160,12 @@ const Home = ({url}) => {
     )
   })
 
+  const addNewPlantRef = useRef()
+
+  const toggleShowNewPlantForm = () => {
+    setShowNewPlantForm(!showNewPlantForm)
+    addNewPlantRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
 
   if ( !localStorage.get('user') ) {
     return (
@@ -179,11 +178,11 @@ const Home = ({url}) => {
   
   
         <h2>My Plant List</h2>
-        <button onClick={ () => setShowNewPlantForm(!showNewPlantForm) }>add custom plant</button>
+        <button onClick={ toggleShowNewPlantForm }>add custom plant</button>
         {/* <button onClick={ redirect } >add plant from database</button> */}
   
-        <span>
-          <button><Link to="/addFromDatabase">add plant from database</Link></button>
+        <span ref={addNewPlantRef} >
+          <button ><Link to="/addFromDatabase">add plant from database</Link></button>
         </span>
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
