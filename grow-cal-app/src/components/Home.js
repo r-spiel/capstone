@@ -182,7 +182,7 @@ const Home = ({url}) => {
         {/* <button onClick={ redirect } >add plant from database</button> */}
   
         <span ref={addNewPlantRef} >
-          <button ><Link to="/addFromDatabase">add plant from database</Link></button>
+          <button ><Link to="/capstone/addFromDatabase">add plant from database</Link></button>
         </span>
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
