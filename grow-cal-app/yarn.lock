@@ -1208,15 +1208,6 @@
     "ical.js" "^1.4.0"
     "tslib" "^2.0.3"
 
-"@fullcalendar/core@^5.5.1":
-  "integrity" "sha512-6OAtYhgWekZExakbB3NUiIPZHsebBQQfwdWpccYYEKb5DZi3mf4gUb8CCrvfBp6YXx0hhYNlglPLcfJgxpy5Bg=="
-  "resolved" "https://registry.npmjs.org/@fullcalendar/core/-/core-5.5.1.tgz"
-  "version" "5.5.1"
-  dependencies:
-    "@fullcalendar/common" "~5.5.0"
-    "preact" "^10.0.5"
-    "tslib" "^2.0.3"
-
 "@fullcalendar/daygrid@^5.5.0", "@fullcalendar/daygrid@~5.5.0":
   "integrity" "sha512-O/59C3ihElLsPnkjlD1xUgAf3v7WEARXVO+wZfASKtK14Ccux2MA9mWUA1+80m9q8on7SYL36ORhrea7GKy/qQ=="
   "resolved" "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-5.5.0.tgz"
@@ -9126,11 +9117,6 @@
     "chalk" "^2.4.2"
     "source-map" "^0.6.1"
     "supports-color" "^6.1.0"
-
-"preact@^10.0.5":
-  "integrity" "sha512-r6siDkuD36oszwlCkcqDJCAKBQxGoeEGytw2DGMD5A/GGdu5Tymw+N2OBXwvOLxg6d1FeY8MgMV3cc5aVQo4Cg=="
-  "resolved" "https://registry.npmjs.org/preact/-/preact-10.5.12.tgz"
-  "version" "10.5.12"
 
 "prelude-ls@^1.2.1":
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
