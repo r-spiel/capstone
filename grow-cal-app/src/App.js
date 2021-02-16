@@ -10,8 +10,8 @@ import LoginForm from './components/LoginForm';
 import Home from './components/Home';
 import AddFromDatabase from './components/fromDB/AddFromDatabase';
 
-const API_URL_BASE = 'http://localhost:8080'
-// const API_URL_BASE = 'https://thawing-spire-97162.herokuapp.com/'
+// const API_URL_BASE = 'http://localhost:8080'
+const API_URL_BASE = 'https://thawing-spire-97162.herokuapp.com/'
 
 function App() {
 
