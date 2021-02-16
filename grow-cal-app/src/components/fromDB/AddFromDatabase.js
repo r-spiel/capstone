@@ -6,7 +6,16 @@ import PlantDB from './PlantDB';
 const AddFromDatabase = ({url, scrollToTopCallback}) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [plantList, setPlantList] = useState([])
+  const [searchText, setSearchText] = useState("")
 
+  const handleChange = (e) => {
+    searchSpace(e)
+  }
+
+  const searchSpace = (event) => {
+    let keyword = event.target.value;
+    setSearchText(keyword)
+  }
 
   useEffect(() => {
     axios.get(`${url}/plants`)
@@ -37,8 +46,21 @@ const AddFromDatabase = ({url, scrollToTopCallback}) => {
     });
   }
 
+  const searchResults = plantList.filter(plant => {
+    if (searchText === null || searchText ==="") {
+      return (
+        plant
+      )
+    } else if (plant.name.toLowerCase().includes(searchText.toLowerCase())) {
+      return (
+        plant
+      )
+    } else {
+      return false
+    }
+  })
 
-  const dbPlants = plantList.map((plant) => {
+  const dbPlantComponents = searchResults.map(plant => {
     return (
       <div className="card" key={plant.id}>
         <PlantDB scrollToTopCallback={scrollToTopCallback} plantObj={plant} addPlantCallback={addPlantToAPI} />
@@ -48,9 +70,23 @@ const AddFromDatabase = ({url, scrollToTopCallback}) => {
 
   return (
     <div>
-      <h1>Plants from the Database:</h1>
+      <span >
+        <h1 className="title-inline">Plants from the Database:</h1>
+        <span className="input-group">
+          <span className="form-outline">
+            <label className="form-label title-inline">Search</label>
+            <input type="search" id="form1" className="form-control title-inline" onChange={handleChange} />
+          </span>
+        </span>
+      </span>
+
+
       <div className="text-danger" >{ errorMessage }</div>
-      { dbPlants }
+      {/* { dbPlants } */}
+      <div className="mt-3">
+        {dbPlantComponents}
+      </div>
+
     </div>
   )
 

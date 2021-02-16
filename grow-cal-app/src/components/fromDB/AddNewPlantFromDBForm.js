@@ -92,7 +92,7 @@ const AddNewPlantFromDBForm = ({plantObj, addPlantCallback, hidePlantForm}) => {
 
   return (
     <div className="card p-2">
-      <p>Add {plantObj.name} to your Garden</p>
+      <h3>Add {plantObj.name} to your Garden</h3>
       <p>*plant name must be unique compared to the plant names in your Garden*</p>
       <div className="text-danger">{ errorMessage !== "" ? errorMessage : null }</div>
       <form onSubmit={onFormSubmit}>

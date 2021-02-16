@@ -1,21 +1,17 @@
 import './App.css';
-// import "react-big-calendar/lib/css/react-big-calendar.css";
 import React, { useState, useRef } from 'react';
 import localStorage from 'local-storage';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  withRouter,
+  Route
 } from 'react-router-dom';
-import axios from 'axios';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
 import AddFromDatabase from './components/fromDB/AddFromDatabase';
 
-// const API_URL_BASE = 'http://localhost:8080'
-const API_URL_BASE = 'https://thawing-spire-97162.herokuapp.com/'
+const API_URL_BASE = 'http://localhost:8080'
+// const API_URL_BASE = 'https://thawing-spire-97162.herokuapp.com/'
 
 function App() {
 
