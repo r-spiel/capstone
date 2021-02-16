@@ -80,8 +80,10 @@ function App() {
           
         </main>
 
-        <footer>
-
+        <footer className="bg-dark text-white text-center">
+          <h6 className="p-2 m-3">
+            © 2021 Richelle Spiel
+          </h6>
         </footer>
 
 

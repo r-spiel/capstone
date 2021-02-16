@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PlantIcon from './PlantIcon'
-
 
 const Plants = ({plants, selectAPlant, unselectAPlant, selectedPlantId}) => {
   

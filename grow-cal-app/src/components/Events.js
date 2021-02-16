@@ -1,15 +1,9 @@
-import React, { useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Event from './Event'
-import localStorage from 'local-storage';
-import moment from 'moment'
+
 
 const Events = ({plantId, eventList, deleteEventCallback}) => {
-
-  // const deleteEventHandler = (eventId) => {
-  //   deleteEventCallback(plantId, eventId)
-  // }
 
   const eventMap = eventList.map((singleEvent) => {
     return (

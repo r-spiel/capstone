@@ -1,5 +1,4 @@
 import React, { useState} from 'react';
-import localStorage from 'local-storage';
 
 const FORM_FIELDS = [
   {
@@ -52,8 +51,6 @@ const AddNewPlantForm = (props) => {
   
   const [formFields, setFormFields] = useState(defaultFormFields)
   const [errorMessage, setErrorMessage] = useState("")
-
-  // setErrorMessage(props.newPlantErrorMsg)
 
   const onInputChange = event => {
     const newFormFields = {

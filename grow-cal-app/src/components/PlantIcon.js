@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import localStorage from 'local-storage';
-import axios from 'axios';
-import UpdatePlantForm from './UpdatePlantForm'
-import Events from './Events'
-import NewEventForm from './NewEventForm';
+import React from 'react';
 
 const PlantIcon = ({id, name, imageUrl,  selectedPlantId, selectAPlant, unselectAPlant }) => {
   // const [isSelected, setIsSelected] = useState(false)
