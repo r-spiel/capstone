@@ -60,12 +60,12 @@ function App() {
   return (
     <Router>
       
-        <header ref={topRef}>
+        <header className="grow-title" ref={topRef}>
           <nav className="navbar navbar-light">
-          <a href="/capstone" className="title navbar-brand grow-title">Grow-Cal App</a>
+          <a href="/capstone" className="title">Grow-Cal App</a>
             <ul className="navbar-nav">
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
-                <button onClick={ onLoginLogoutClick } className="nav-item" >{ buttonLoginText }</button></li>
+                <button onClick={ onLoginLogoutClick } className="nav-item btn ml-1 bg-white" >{ buttonLoginText }</button></li>
                 { showLogin ? <LoginForm url={API_URL_BASE} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
             

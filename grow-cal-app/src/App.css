@@ -5,13 +5,14 @@ html, body {
 
 .title {
   font-size: 60px;
-  color: #EDEEF0;
+  color: #192E2F;
   font-family: Georgia, 'Times New Roman', Times, serif;
   
 }
 
-.grow-title:hover {
-  color: #EDEEF0;
+.grow-title a:hover {
+  color: #39595C;
+  text-decoration: none;
 }
 
 .login-card {
@@ -85,4 +86,9 @@ html, body {
 
 .source-title {
   margin-top: 50px;
+}
+
+.link-to-db a {
+  color: black;
+  text-decoration: none;
 }
