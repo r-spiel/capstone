@@ -178,19 +178,21 @@ const Home = ({url}) => {
   
   
         <h2>My Plant List</h2>
-        <button onClick={ toggleShowNewPlantForm }>add custom plant</button>
+        <button className="btn bg-white" onClick={ toggleShowNewPlantForm }>add custom plant</button>
         {/* <button onClick={ redirect } >add plant from database</button> */}
   
         <span ref={addNewPlantRef} >
-          <button ><Link to="/capstone/addFromDatabase">add plant from database</Link></button>
+          <button className="btn bg-white ml-2 link-to-db"><Link to="/capstone/addFromDatabase">add plant from database</Link></button>
         </span>
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }
-  
-        { plantList.length > 0 ? <Plants plants={plantList} selectedPlantId={selectedPlantId} selectAPlant={selectAPlant} unselectAPlant={unselectAPlant} /> : "Please add plants to your list!"}
-        {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
-      
-        { selectedPlantId ? showPlantDetails : null }
+        <div className="mt-3">
+          { plantList.length > 0 ? <Plants plants={plantList} selectedPlantId={selectedPlantId} selectAPlant={selectAPlant} unselectAPlant={unselectAPlant} /> : "Your plant list is empty!  Add some plants! 🌱"}
+          {/* <div className="text-danger">{errorMessage !== "" ? errorMessage : null }</div> */}
+        
+          { selectedPlantId ? showPlantDetails : null }
+        </div>
+
       </div>
     )
   }
