@@ -42,7 +42,8 @@ const Home = ({url}) => {
             start: singleEvent.startTime,
             end: singleEvent.endTime,
             title: singleEvent.title,
-            allDay: false
+            allDay: false, 
+            backgroundColor: singleEvent.notes
           })
         }
         )
@@ -120,7 +121,7 @@ const Home = ({url}) => {
   const addEventToPlant = (eventObj, plantId) => {
     axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
     .then((response) => {
-
+      console.log(eventObj)
       getPlantsList();
       console.log(response)
     })
@@ -178,11 +179,11 @@ const Home = ({url}) => {
   
   
         <h2>My Plant List</h2>
-        <button className="btn bg-white" onClick={ toggleShowNewPlantForm }>add custom plant</button>
+        <button className="btn bg-white border border-secondary" onClick={ toggleShowNewPlantForm }>add custom plant</button>
         {/* <button onClick={ redirect } >add plant from database</button> */}
   
         <span ref={addNewPlantRef} >
-          <button className="btn bg-white ml-2 link-to-db"><Link to="/capstone/addFromDatabase">add plant from database</Link></button>
+          <button className="btn bg-white ml-2 link-to-db border border-secondary"><Link to="/capstone/addFromDatabase">add plant from database</Link></button>
         </span>
   
         { showNewPlantForm ? <AddNewPlantForm newPlantAPICallback={addPlantToAPI} newPlantErrorMsg={newPlantError} hideNewPlantForm={changeShowNewPlantForm} /> : null }

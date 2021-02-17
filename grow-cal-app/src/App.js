@@ -65,7 +65,7 @@ function App() {
           <a href="/capstone" className="title">Grow-Cal App</a>
             <ul className="navbar-nav">
               <li className="navbar-text">{ localStorage.get('user') ? "Logged in as " + localStorage.get('user') : null }
-                <button onClick={ onLoginLogoutClick } className="nav-item btn ml-1 bg-white" >{ buttonLoginText }</button></li>
+                <button onClick={ onLoginLogoutClick } className="nav-item btn ml-1 bg-white border border-secondary" >{ buttonLoginText }</button></li>
                 { showLogin ? <LoginForm url={API_URL_BASE} setCurrentUserCallback={saveCurrentUser} buttonTextCallback={changeButtonToLogout} /> : null }
             </ul>
             
