@@ -9,7 +9,7 @@ const Event = ({singleEvent, plantId, deleteEventCallback}) => {
   } 
 
   return (
-    <div className="event-card card m-1" key={singleEvent.id} style={{"border-color": singleEvent.notes}}>
+    <div className="event-card card m-1" key={singleEvent.id} style={{"borderColor": singleEvent.notes}}>
       <div className="card-body">
         <span className="card-title">
           <p className="title-inline align-middle"><span className="bold">Event title:</span> {singleEvent.title}</p>
