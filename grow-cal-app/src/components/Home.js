@@ -121,9 +121,7 @@ const Home = ({url}) => {
   const addEventToPlant = (eventObj, plantId) => {
     axios.post(`${url}/userPlants/${plantId}/events`, eventObj)
     .then((response) => {
-      console.log(eventObj)
       getPlantsList();
-      console.log(response)
     })
     .catch((error) => {
       console.log(error.response);

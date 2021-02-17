@@ -77,7 +77,7 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
         notes: selectedColor.hex
       }
 
-      console.log(eventDetails)
+      // console.log(eventDetails)
       newEventCallback(eventDetails, plantId)
       setFormFields(defaultFormFields)
     } else {
