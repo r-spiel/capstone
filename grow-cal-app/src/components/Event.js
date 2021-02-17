@@ -6,13 +6,13 @@ import moment from 'moment'
 const Event = ({singleEvent, plantId, deleteEventCallback}) => {
   const deleteEventHandler = () => {
     deleteEventCallback(plantId, singleEvent.id)
-  }
+  } 
 
   return (
-    <div className="event-card card m-1" key={singleEvent.id}>
+    <div className="event-card card m-1" key={singleEvent.id} style={{"borderColor": singleEvent.notes}}>
       <div className="card-body">
-        <span>
-          <p className="title-inline"><span className="bold">Event title:</span> {singleEvent.title}</p>
+        <span className="card-title">
+          <p className="title-inline align-middle"><span className="bold">Event title:</span> {singleEvent.title}</p>
           <button type="button" className="btn bg-white text-danger float-right" onClick={ deleteEventHandler } >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -20,11 +20,12 @@ const Event = ({singleEvent, plantId, deleteEventCallback}) => {
             </svg>
           </button>
         </span>
-
-
-        <p className="pt-3"><span className="bold">Start Date/Time:</span> {moment(singleEvent.startTime).format('MMMM Do YYYY, h:mm a')}</p>
-        <p><span className="bold">End Date/Time:</span> {moment(singleEvent.endTime).format('MMMM Do YYYY, h:mm a')}</p>
       </div>
+
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item"><span className="bold">Start Date/Time:</span> {moment(singleEvent.startTime).format('MMMM Do YYYY, h:mm a')}</li>
+        <li className="list-group-item"><span className="bold">End Date/Time:</span> {moment(singleEvent.endTime).format('MMMM Do YYYY, h:mm a')}</li>
+      </ul>
 
     </div>
   )

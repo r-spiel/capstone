@@ -77,7 +77,7 @@ const PlantDetails = (props) => {
       <div className="event-container pt-2">
         <span >
           <h4 className="title-inline m-2">Events for {plantObj.name}:</h4>
-          <button type="button" className="float-right" onClick={ () => setShowNewEventForm(!showNewEventForm) } >Add Event</button>
+          <button type="button" className="new-event-btn float-right bg-white border border-secondary mr-3" onClick={ () => setShowNewEventForm(!showNewEventForm) } >New Event</button>
         </span>
         
         <div className="p-2">

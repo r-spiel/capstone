@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
+import { TwitterPicker } from 'react-color';
 
 
 const NewEventForm = ({newEventCallback, plantName, plantId}) => {
@@ -16,6 +17,8 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const [dateStart, setDateStart] = useState(null)
   const [dateEnd, setDateEnd] = useState(null)
+
+  const [selectedColor, setSelectedColor] = useState({"hex": "#79A9A9"})
 
   const onSelectStartAMPM = (event) => {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
@@ -35,6 +38,11 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
 
   const onInputChange = (event) => {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
+  }
+
+  const colorPickerHandler = (color) => {
+    setSelectedColor(color)
+    document.getElementById('selected-color-box').style.backgroundColor = color.hex
   }
 
   const onFormSubmit = event => {
@@ -65,7 +73,8 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
       const eventDetails = {
         startTime: finalStartDate,
         endTime: finalEndDate,
-        title: formFields.title
+        title: formFields.title, 
+        notes: selectedColor.hex
       }
 
       console.log(eventDetails)
@@ -78,8 +87,8 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
   }
 
   return (
-    <div>
-      <p>NEW EVENT FORM</p>
+    <div className="card p-2 new-event-form">
+      <h5>Add a New Event:</h5>
       <div className="text-danger">{ errorMessage }</div>
       <form onSubmit={onFormSubmit}>
         <label>Event Title: </label>
@@ -101,15 +110,25 @@ const NewEventForm = ({newEventCallback, plantName, plantId}) => {
         <div>
           <label>End Date: </label>
           <DayPickerInput onDayChange={onEndDateChange} />
-          <label>Start Time:</label>
+          <label>End Time:</label>
           <input id="endTime" name="endTime" onChange={onInputChange} value={formFields.endTime} placeholder="HH:MM" type="text"/>
           <select onChange={onSelectEndAMPM} defaultValue="AM" name="endTimeAMPM">
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </select>
         </div>
+
+        <div>
+          <span>
+            <p className="title-inline">Selected Color:</p>
+            <div id="selected-color-box"></div>
+          </span>
+
+          <p>Choose a different color:</p>
+          <TwitterPicker color={selectedColor} onChange={colorPickerHandler} />
+        </div>
         
-        <button type="submit" className="btn bg-white">Add Event</button>
+        <input type="submit" value="Add Event" className="submit-btn mt-3" />
       </form>
     </div>
   )

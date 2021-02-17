@@ -78,6 +78,7 @@ html, body {
 
 .event-card {
   width: 430px;
+  border-width: 6px !important;
 }
 
 .cal-icon {
@@ -91,4 +92,30 @@ html, body {
 .link-to-db a {
   color: black;
   text-decoration: none;
+}
+
+#selected-color-box {
+  width: 30px;
+  height: 30px;
+  background-color: #79A9A9;
+}
+
+.event-color-box {
+  width: 20px;
+  height: 20px;
+  background-color: #79A9A9;
+  display: inline-block;
+}
+
+.selected-plant {
+  border-color: #00D084;
+  border-width: 6px !important;
+}
+
+.new-event-form {
+  background-color: #192e2f1a;
+}
+
+.new-event-btn {
+  border-radius: 6px;
 }

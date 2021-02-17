@@ -89,7 +89,7 @@ const AddNewPlantForm = (props) => {
 
   return (
     <div className="card p-2 mt-2">
-      <h3>NEW PLANT FORM</h3>
+      <h3>Add a New Plant:</h3>
       <p>*plant name must be unique*</p>
       <div className="text-danger">{ errorMessage !== "" ? errorMessage : null }</div>
       <form onSubmit={onFormSubmit}>
