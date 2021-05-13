@@ -33,3 +33,13 @@ Front-end
 Thank you for visiting! 
 I am so appreciative of the support that I've received from the Ada community in my learning to code journey. 
 Please reach out to me with any questions.  
+
+Here are a few images from the project:
+
+![image](https://user-images.githubusercontent.com/47701091/118087095-de7bc480-b379-11eb-938c-07803f2a05d0.png)
+
+
+![image](https://user-images.githubusercontent.com/47701091/118087008-b5f3ca80-b379-11eb-8834-95c096ca6b44.png)
+
+
+![image](https://user-images.githubusercontent.com/47701091/118086634-23532b80-b379-11eb-80a5-e70502d8ce6b.png)
